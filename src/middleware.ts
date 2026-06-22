@@ -6,7 +6,7 @@ const ADMIN_PATH = process.env.ADMIN_SECRET_PATH || 'root-management-portal-x91'
 
 // Simple JWT payload decoder for route guarding (no crypto verification needed here).
 // Full cryptographic JWT verification is handled by API routes via jsonwebtoken library.
-function decodeJwtPayload(token: string): any | null {
+function decodeJwtPayload(token: string): { exp?: number; role?: string; userId?: string } | null {
   try {
     const parts = token.split('.');
     if (parts.length !== 3) return null;
@@ -25,7 +25,7 @@ function decodeJwtPayload(token: string): any | null {
     }
 
     return decoded;
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -53,7 +53,7 @@ function checkEdgeRateLimit(ip: string): boolean {
 }
 
 export async function middleware(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') || (request as any).ip || '127.0.0.1';
+  const ip = request.headers.get('x-forwarded-for') || (request as NextRequest & { ip?: string }).ip || '127.0.0.1';
   
   // 1. Rate Limiting Check
   if (!checkEdgeRateLimit(ip)) {

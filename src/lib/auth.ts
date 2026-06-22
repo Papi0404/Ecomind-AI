@@ -13,15 +13,15 @@ export interface TokenPayload {
 }
 
 // 1. Sign JWT Token
-export function signToken(payload: TokenPayload, expiresIn: string = '7d'): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: expiresIn as any });
+export function signToken(payload: TokenPayload, expiresIn: string | number = '7d'): string {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: expiresIn as import('jsonwebtoken').SignOptions['expiresIn'] });
 }
 
 // 2. Verify JWT Token
 export function verifyToken(token: string): TokenPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as TokenPayload;
-  } catch (error) {
+  } catch (_error) {
     return null;
   }
 }
@@ -39,7 +39,7 @@ export async function createSession(
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
 
   const userAgent = req.headers.get('user-agent') || 'Unknown';
-  const ipAddress = req.headers.get('x-forwarded-for') || (req as any).ip || '127.0.0.1';
+  const ipAddress = req.headers.get('x-forwarded-for') || (req as NextRequest & { ip?: string }).ip || '127.0.0.1';
 
   // Delete existing sessions for this user to avoid stale/duplicate sessions
   await prisma.session.deleteMany({ where: { userId } });
@@ -96,7 +96,7 @@ export async function destroySession(): Promise<boolean> {
       await prisma.session.delete({
         where: { token },
       });
-    } catch (e) {
+    } catch (_e) {
       // Ignored if session already deleted
     }
   }

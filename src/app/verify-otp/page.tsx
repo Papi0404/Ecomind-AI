@@ -6,7 +6,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '@/lib/api-client';
 import { Leaf, ShieldCheck, AlertTriangle, Loader2 } from 'lucide-react';
 
-export default function VerifyOtpPage() {
+import { Suspense } from 'react';
+
+function VerifyOtpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { verifyOtp } = useAuth();
@@ -155,5 +157,17 @@ export default function VerifyOtpPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-grid-pattern flex items-center justify-center">
+        <Loader2 className="w-10 h-10 text-[#2D5A27] animate-spin" />
+      </div>
+    }>
+      <VerifyOtpContent />
+    </Suspense>
   );
 }

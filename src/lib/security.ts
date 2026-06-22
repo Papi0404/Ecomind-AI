@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { NextRequest } from 'next/server';
+
 
 // 1. Password Hashing
 export async function hashPassword(password: string): Promise<string> {
@@ -23,16 +23,16 @@ export function sanitizeString(input: string): string {
     .replace(/\//g, '&#x2F;');
 }
 
-export function sanitizeObject<T extends Record<string, any>>(obj: T): T {
-  const sanitized = { ...obj };
+export function sanitizeObject<T extends Record<string, unknown>>(obj: T): T {
+  const sanitized = { ...obj } as Record<string, unknown>;
   for (const key in sanitized) {
     if (typeof sanitized[key] === 'string') {
-      sanitized[key] = sanitizeString(sanitized[key]) as any;
+      sanitized[key] = sanitizeString(sanitized[key] as string);
     } else if (typeof sanitized[key] === 'object' && sanitized[key] !== null) {
-      sanitized[key] = sanitizeObject(sanitized[key]);
+      sanitized[key] = sanitizeObject(sanitized[key] as Record<string, unknown>);
     }
   }
-  return sanitized;
+  return sanitized as T;
 }
 
 // 3. Simple In-Memory Rate Limiting (Fallback for Redis)

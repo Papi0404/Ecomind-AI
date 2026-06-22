@@ -6,7 +6,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Leaf, Lock, Mail, AlertTriangle, Loader2 } from 'lucide-react';
 
-export default function LoginPage() {
+import { Suspense } from 'react';
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login } = useAuth();
@@ -136,5 +138,17 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-grid-pattern flex items-center justify-center">
+        <Loader2 className="w-10 h-10 text-[#2D5A27] animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
