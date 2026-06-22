@@ -1,0 +1,210 @@
+/* ─── LEVEL & STREAK SIDEBAR ───────────────────────────── */
+.sidebar-level-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(126,217,87,.1), rgba(168,230,163,.06));
+  border: 1px solid rgba(126,217,87,.25);
+  border-radius: var(--radius-md);
+  margin-top: 16px;
+}
+.level-icon { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+.level-info { flex: 1; min-width: 0; }
+.level-title { font-size: .85rem; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+.level-sub { font-size: .73rem; color: var(--gray-400); }
+
+.sidebar-streak {
+  padding: 14px 16px;
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  margin-top: 12px;
+  border: 1px solid var(--gray-100);
+}
+.streak-dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  justify-content: space-between;
+}
+.sd {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  font-weight: 600;
+  background: var(--gray-200);
+  color: var(--gray-400);
+}
+.sd.active { background: var(--green-primary); color: var(--white); }
+.sd.today {
+  background: linear-gradient(135deg, var(--green-primary), #6dcb46);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(126,217,87,.4);
+  animation: pulseGreen 2s infinite;
+}
+
+/* ─── SECTION BLOCKS ───────────────────────────────────── */
+.section-block { margin-bottom: 36px; }
+.section-block-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.block-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 4px;
+}
+.block-sub { font-size: .83rem; color: var(--gray-400); }
+.progress-mini { display: flex; align-items: center; gap: 10px; }
+
+/* ─── MISSIONS GRID ────────────────────────────────────── */
+.missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.mission-card {
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  transition: var(--transition);
+}
+.mission-card.done {
+  background: linear-gradient(135deg, rgba(126,217,87,.07), rgba(168,230,163,.04));
+  border-color: rgba(126,217,87,.3);
+}
+.mission-card.done .mc-title { text-decoration: line-through; opacity: .65; }
+
+.mc-check {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.mc-check.pending {
+  background: var(--gray-100);
+  color: var(--gray-300);
+}
+.mc-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.mc-content { flex: 1; min-width: 0; }
+.mc-title { font-size: .92rem; font-weight: 600; color: var(--gray-800); margin-bottom: 3px; }
+.mc-desc { font-size: .8rem; color: var(--gray-500); margin-bottom: 8px; line-height: 1.5; }
+.mc-reward {
+  display: flex; gap: 12px; align-items: center;
+  font-size: .78rem; font-weight: 600;
+}
+.mc-reward > span:first-child { color: var(--green-dark); }
+.mc-co2 { color: var(--gray-400); font-weight: 400; }
+.mc-btn { flex-shrink: 0; margin-top: 2px; }
+
+/* ─── WEEKLY CHALLENGES ────────────────────────────────── */
+.weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.weekly-card { padding: 24px; }
+.active-challenge {
+  border-color: rgba(126,217,87,.5);
+  background: linear-gradient(135deg, rgba(126,217,87,.06), rgba(255,248,231,.9));
+  box-shadow: 0 4px 20px rgba(126,217,87,.12);
+}
+.wc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.wc-icon { font-size: 2rem; line-height: 1; }
+.wc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.wc-pts { font-size: .8rem; font-weight: 700; color: var(--green-dark); }
+.wc-title { font-size: 1rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
+.wc-desc { font-size: .85rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 18px; }
+.wc-progress { margin-bottom: 16px; }
+.wc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wc-co2 { font-size: .78rem; color: var(--gray-400); }
+
+/* ─── ACHIEVEMENTS ─────────────────────────────────────── */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+.ach-card {
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+.ach-card.earned {
+  background: linear-gradient(145deg, #fff, rgba(126,217,87,.06));
+  border-color: rgba(126,217,87,.3);
+}
+.ach-card.earned:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-primary);
+}
+.ach-card.locked { opacity: .5; filter: grayscale(.4); }
+.ach-icon { font-size: 2.2rem; line-height: 1; }
+.ach-name { font-size: .88rem; font-weight: 700; color: var(--green-dark); line-height: 1.3; }
+.ach-desc { font-size: .75rem; color: var(--gray-500); line-height: 1.4; }
+.ach-date { font-size: .72rem; color: var(--green-primary); font-weight: 600; }
+.ach-lock { font-size: .72rem; color: var(--gray-400); }
+
+/* ─── TOAST ────────────────────────────────────────────── */
+.eco-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--green-dark);
+  color: var(--white);
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-size: .92rem;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(45,90,39,.3);
+  opacity: 0;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  z-index: 9999;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.eco-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────── */
+@media(max-width:1100px) {
+  .weekly-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:768px) {
+  .weekly-grid { grid-template-columns: 1fr; }
+  .missions-grid { grid-template-columns: 1fr; }
+  .achievements-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media(max-width:480px) {
+  .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+}

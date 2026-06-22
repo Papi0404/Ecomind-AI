@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>EcoMind AI — AI untuk Masa Depan Lingkungan</title>
+<meta name="description" content="EcoMind AI membantu Anda memahami dampak aktivitas terhadap lingkungan dan memberikan rekomendasi aksi nyata berbasis AI."/>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="landing.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4"/><path d="M16 4h4v4"/></svg>
+    </div>
+    EcoMind AI
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Beranda</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="chat.html">AI Chat</a>
+    <a href="challenges.html">Tantangan</a>
+    <a href="#features">Fitur</a>
+  </div>
+  <div class="nav-actions">
+    <a href="dashboard.html" class="btn btn-ghost btn-sm">Masuk</a>
+    <a href="dashboard.html" class="btn btn-primary btn-sm">Mulai Gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+  <svg class="deco" style="right:-80px;top:10%;width:400px;height:400px" viewBox="0 0 200 200"><path d="M100 10 C140 10,180 50,180 100 C180 150,140 180,100 180 C60 180,20 150,20 100 C20 50,60 10,100 10Z" fill="#7ED957"/><path d="M100 30 C50 30,30 80,30 100 C30 130,60 160,100 160" fill="none" stroke="#A8E6A3" stroke-width="3"/></svg>
+
+  <div class="hero-inner">
+    <div class="hero-text anim-fadeinup">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI Lingkungan #1 di Indonesia
+      </div>
+      <h1 class="hero-title">AI untuk Masa Depan<br/><span class="hero-highlight">Lingkungan</span> yang Lebih Baik</h1>
+      <p class="hero-sub">EcoMind AI membantu Anda memahami dampak aktivitas sehari-hari terhadap lingkungan dan memberikan rekomendasi aksi nyata yang bisa dilakukan mulai hari ini.</p>
+      <div class="hero-actions">
+        <a href="dashboard.html" class="btn btn-primary hero-btn-main">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Mulai Sekarang
+        </a>
+        <a href="chat.html" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Coba AI
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <img src="https://i.pravatar.cc/32?img=1" alt="user"/>
+          <img src="https://i.pravatar.cc/32?img=2" alt="user"/>
+          <img src="https://i.pravatar.cc/32?img=3" alt="user"/>
+          <img src="https://i.pravatar.cc/32?img=4" alt="user"/>
+        </div>
+        <span class="trust-text">Bergabung bersama <strong>50.000+</strong> pengguna aktif</span>
+      </div>
+    </div>
+
+    <div class="hero-visual anim-fadeinup d3">
+      <div class="hero-card-main glass anim-float">
+        <div class="hc-top">
+          <div class="hc-avatar">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4M16 4l-2 2M18 8l-2-1"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;color:var(--green-dark)">EcoMind AI</div>
+            <div style="font-size:.78rem;color:var(--gray-400)">AI Assistant Lingkungan</div>
+          </div>
+          <div class="online-dot"></div>
+        </div>
+        <div class="hc-msg ai">Jejak karbon Anda minggu ini <strong>turun 18%</strong> 🌿 Tetap pertahankan kebiasaan baik ini!</div>
+        <div class="hc-msg user">Apa yang bisa saya lakukan untuk mengurangi sampah plastik?</div>
+        <div class="hc-msg ai typing-dots"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hstat glass">
+          <div class="hstat-num">50K+</div>
+          <div class="hstat-lbl">Pengguna Aktif</div>
+        </div>
+        <div class="hstat glass">
+          <div class="hstat-num">2.4M</div>
+          <div class="hstat-lbl">kg CO₂ Dikurangi</div>
+        </div>
+        <div class="hstat glass">
+          <div class="hstat-num">180K</div>
+          <div class="hstat-lbl">Misi Selesai</div>
+        </div>
+      </div>
+
+      <div class="hero-eco-card glass">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg></div>
+          <div>
+            <div style="font-size:.82rem;color:var(--gray-500)">Eco Score Hari Ini</div>
+            <div style="font-weight:700;color:var(--green-dark);font-size:1.1rem">87 / 100</div>
+          </div>
+        </div>
+        <div class="progress-wrap" style="margin-top:10px">
+          <div class="progress-fill" style="width:87%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metrics Row -->
+  <div class="hero-metrics">
+    <div class="metric-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7ED957" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>50,000+ Pengguna Aktif</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7ED957" stroke-width="2" stroke-linecap="round"><path d="M1 6l11 13L23 6"/></svg>
+      <span>2.4 Juta kg CO₂ Dikurangi</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7ED957" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span>180,000 Misi Hijau Selesai</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7ED957" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <span>Tersedia 24/7</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="features-header" style="text-align:center">
+      <div class="section-label">✦ Fitur Unggulan</div>
+      <h2 class="section-title" style="text-align:center">Semua yang Kamu Butuhkan<br/>untuk Hidup Lebih Hijau</h2>
+      <p class="section-sub" style="margin:0 auto">Rangkaian alat AI yang cerdas untuk memandu perjalanan ramah lingkungan Anda dari awal hingga konsisten.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card card">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(126,217,87,.2),rgba(168,230,163,.15))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="feat-title">AI Chat Lingkungan</h3>
+        <p class="feat-desc">Tanya apa saja tentang lingkungan dan dapatkan jawaban cerdas berbasis data ilmiah terkini.</p>
+        <a href="chat.html" class="feat-link">Coba sekarang →</a>
+      </div>
+      <div class="feat-card card">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(251,191,36,.05))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="feat-title">Carbon Footprint Calculator</h3>
+        <p class="feat-desc">Hitung jejak karbon harian, mingguan, dan tahunan dari aktivitas sehari-hari Anda secara akurat.</p>
+        <a href="dashboard.html" class="feat-link">Hitung sekarang →</a>
+      </div>
+      <div class="feat-card card">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(99,202,183,.2),rgba(99,202,183,.05))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D6E6E" stroke-width="2" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+        </div>
+        <h3 class="feat-title">Smart Recycling Guide</h3>
+        <p class="feat-desc">Panduan daur ulang cerdas yang membantu Anda memilah sampah dengan benar dan efisien.</p>
+        <a href="chat.html" class="feat-link">Pelajari lebih →</a>
+      </div>
+      <div class="feat-card card">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(167,139,250,.2),rgba(167,139,250,.05))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="feat-title">Rekomendasi Gaya Hidup Hijau</h3>
+        <p class="feat-desc">Saran personal berbasis AI yang disesuaikan dengan gaya hidup dan kebiasaan unik Anda.</p>
+        <a href="dashboard.html" class="feat-link">Lihat rekomendasi →</a>
+      </div>
+      <div class="feat-card card">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="feat-title">Eco Challenges & Missions</h3>
+        <p class="feat-desc">Tantangan harian dan misi hijau yang membuat perubahan lingkungan terasa menyenangkan dan bermakna.</p>
+        <a href="challenges.html" class="feat-link">Mulai tantangan →</a>
+      </div>
+      <div class="feat-card card feat-card-highlight">
+        <div class="feat-icon icon-wrap icon-wrap-lg" style="background:linear-gradient(135deg,rgba(126,217,87,.25),rgba(168,230,163,.15))">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="feat-title">Progress Monitoring</h3>
+        <p class="feat-desc">Pantau perkembangan kebiasaan hijau Anda dengan grafik dan analitik yang intuitif setiap hari.</p>
+        <a href="dashboard.html" class="feat-link">Lihat dashboard →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="hiw-inner">
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="section-label">✦ Cara Kerja</div>
+      <h2 class="section-title" style="text-align:center">3 Langkah Mudah Menuju<br/>Gaya Hidup Lebih Hijau</h2>
+    </div>
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Daftar & Profil Anda</h3>
+          <p>Buat akun gratis dan isi profil gaya hidup Anda. AI kami akan mempelajari kebiasaan Anda untuk memberikan rekomendasi personal.</p>
+        </div>
+      </div>
+      <div class="hiw-arrow">→</div>
+      <div class="hiw-step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Analisis & Rekomendasi</h3>
+          <p>EcoMind AI menganalisis aktivitas Anda dan menghasilkan wawasan mendalam tentang dampak lingkungan beserta solusi konkret.</p>
+        </div>
+      </div>
+      <div class="hiw-arrow">→</div>
+      <div class="hiw-step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Aksi & Pantau Progress</h3>
+          <p>Jalankan rekomendasi, ikuti tantangan, dan pantau progress Anda melalui dashboard interaktif yang memotivasi setiap hari.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner glass">
+    <div class="cta-bg-orb"></div>
+    <div class="section-label" style="margin-bottom:20px">🌿 Bergabung Sekarang</div>
+    <h2 style="font-size:clamp(1.6rem,3.5vw,2.4rem);color:var(--green-dark);margin-bottom:16px">Mulai Perjalanan Hijau Anda<br/>Bersama EcoMind AI</h2>
+    <p style="color:var(--gray-500);max-width:480px;margin:0 auto 32px;text-align:center">Gratis selamanya untuk fitur dasar. Tidak perlu kartu kredit. Bergabunglah dengan ribuan orang yang sudah peduli lingkungan.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="dashboard.html" class="btn btn-primary">Mulai Gratis Sekarang</a>
+      <a href="chat.html" class="btn btn-secondary">Coba AI Chat</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html" style="margin-bottom:12px">
+        <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4"/><path d="M16 4h4v4"/></svg></div>
+        EcoMind AI
+      </a>
+      <p style="font-size:.88rem;max-width:220px">Platform AI untuk hidup lebih ramah lingkungan.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col"><h5>Produk</h5><a href="dashboard.html">Dashboard</a><a href="chat.html">AI Chat</a><a href="challenges.html">Tantangan</a></div>
+      <div class="fl-col"><h5>Perusahaan</h5><a href="#">Tentang Kami</a><a href="#">Blog</a><a href="#">Karir</a></div>
+      <div class="fl-col"><h5>Dukungan</h5><a href="#">Bantuan</a><a href="#">Privasi</a><a href="#">Syarat</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 EcoMind AI. Dibuat dengan 🌿 untuk bumi yang lebih baik.</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+</script>
+</body>
+</html>

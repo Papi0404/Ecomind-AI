@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Tantangan & Misi — EcoMind AI</title>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="dashboard.css"/>
+<link rel="stylesheet" href="challenges.css"/>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4"/><path d="M16 4h4v4"/></svg></div>
+    EcoMind AI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="chat.html">AI Chat</a>
+    <a href="challenges.html" class="active">Tantangan</a>
+  </div>
+  <div class="nav-actions">
+    <div class="user-avatar-nav" style="width:34px;height:34px;background:linear-gradient(135deg,#7ED957,#2D5A27);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#fff;cursor:pointer">R</div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <aside class="sidebar dash-sidebar">
+    <div class="sidebar-nav">
+      <a href="dashboard.html" class="snav-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="chat.html" class="snav-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>AI Chat</span>
+      </a>
+      <a href="challenges.html" class="snav-item active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Tantangan</span>
+      </a>
+      <a href="#" class="snav-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Statistik</span>
+      </a>
+      <div class="snav-divider"></div>
+      <a href="#" class="snav-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Pengaturan</span>
+      </a>
+    </div>
+    <!-- Level Card in Sidebar -->
+    <div class="sidebar-level-card">
+      <div class="level-icon">⚡</div>
+      <div class="level-info">
+        <div class="level-title">Level 8 — Eco Warrior</div>
+        <div class="progress-wrap" style="margin:6px 0"><div class="progress-fill" style="width:71%"></div></div>
+        <div class="level-sub">2,840 / 4,000 EcoPoints</div>
+      </div>
+    </div>
+    <!-- Streak in Sidebar -->
+    <div class="sidebar-streak">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:1.3rem">🔥</span>
+        <div>
+          <div style="font-weight:700;font-size:.95rem;color:var(--green-dark)">14 Hari Streak!</div>
+          <div style="font-size:.75rem;color:var(--gray-400)">Jangan putus hari ini</div>
+        </div>
+      </div>
+      <div class="streak-dots">
+        <div class="sd active">M</div><div class="sd active">S</div><div class="sd active">S</div>
+        <div class="sd active">R</div><div class="sd active">K</div><div class="sd active">J</div><div class="sd today">S</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content" style="padding:32px 32px 60px">
+    <!-- HEADER -->
+    <div class="dash-header" style="margin-bottom:28px">
+      <div>
+        <h1 class="dash-title">Tantangan & Misi 🎯</h1>
+        <p class="dash-sub">Selesaikan misi harian dan tantangan mingguan untuk kumpulkan poin dan naik level.</p>
+      </div>
+      <div class="dash-header-actions">
+        <div class="badge badge-green" style="padding:8px 16px;font-size:.88rem">🔥 Streak 14 Hari</div>
+        <div class="badge badge-gold" style="padding:8px 16px;font-size:.88rem">⚡ Level 8</div>
+      </div>
+    </div>
+
+    <!-- DAILY MISSIONS -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div>
+          <h2 class="block-title">Misi Harian</h2>
+          <p class="block-sub">Reset setiap tengah malam • 3 dari 5 selesai</p>
+        </div>
+        <div class="progress-mini">
+          <div class="progress-wrap" style="width:120px"><div class="progress-fill" style="width:60%"></div></div>
+          <span style="font-size:.82rem;color:var(--gray-500)">3/5</span>
+        </div>
+      </div>
+      <div class="missions-grid">
+        <div class="mission-card card done">
+          <div class="mc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="mc-icon">🚶</div>
+          <div class="mc-content">
+            <div class="mc-title">Berjalan Kaki 30 Menit</div>
+            <div class="mc-desc">Kurangi emisi transportasi hari ini</div>
+            <div class="mc-reward"><span>+80 pts</span><span class="mc-co2">−0.3 kg CO₂</span></div>
+          </div>
+        </div>
+        <div class="mission-card card done">
+          <div class="mc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="mc-icon">🥗</div>
+          <div class="mc-content">
+            <div class="mc-title">Makan Siang Nabati</div>
+            <div class="mc-desc">Pilih menu plant-based hari ini</div>
+            <div class="mc-reward"><span>+60 pts</span><span class="mc-co2">−0.5 kg CO₂</span></div>
+          </div>
+        </div>
+        <div class="mission-card card done">
+          <div class="mc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="mc-icon">🛍️</div>
+          <div class="mc-content">
+            <div class="mc-title">Gunakan Tas Kain</div>
+            <div class="mc-desc">Tolak kantong plastik saat belanja</div>
+            <div class="mc-reward"><span>+40 pts</span><span class="mc-co2">−0.1 kg CO₂</span></div>
+          </div>
+        </div>
+        <div class="mission-card card">
+          <div class="mc-check pending"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/></svg></div>
+          <div class="mc-icon">💡</div>
+          <div class="mc-content">
+            <div class="mc-title">Matikan Lampu 1 Jam</div>
+            <div class="mc-desc">Kurangi konsumsi listrik sore ini</div>
+            <div class="mc-reward"><span>+50 pts</span><span class="mc-co2">−0.2 kg CO₂</span></div>
+          </div>
+          <button class="mc-btn btn btn-primary btn-sm" onclick="completeTask(this)">Selesai</button>
+        </div>
+        <div class="mission-card card">
+          <div class="mc-check pending"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/></svg></div>
+          <div class="mc-icon">♻️</div>
+          <div class="mc-content">
+            <div class="mc-title">Pilah Sampah Hari Ini</div>
+            <div class="mc-desc">Pisahkan organik, anorganik, dan B3</div>
+            <div class="mc-reward"><span>+70 pts</span><span class="mc-co2">−0.15 kg CO₂</span></div>
+          </div>
+          <button class="mc-btn btn btn-primary btn-sm" onclick="completeTask(this)">Selesai</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CHALLENGES -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div>
+          <h2 class="block-title">Tantangan Mingguan</h2>
+          <p class="block-sub">Berakhir Minggu, 29 Juni 2025 • 4 hari tersisa</p>
+        </div>
+      </div>
+      <div class="weekly-grid">
+        <div class="weekly-card card active-challenge">
+          <div class="wc-header">
+            <div class="wc-icon">🚴</div>
+            <div class="wc-meta">
+              <span class="badge badge-green">Aktif</span>
+              <span class="wc-pts">+500 pts</span>
+            </div>
+          </div>
+          <h3 class="wc-title">30-Day Bike Challenge</h3>
+          <p class="wc-desc">Gunakan sepeda sebagai transportasi utama minimal 5 kali minggu ini untuk mengurangi emisi karbon dari kendaraan bermotor.</p>
+          <div class="wc-progress">
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--gray-500);margin-bottom:6px"><span>Progress</span><span style="font-weight:600;color:var(--green-dark)">3 / 5 hari</span></div>
+            <div class="progress-wrap"><div class="progress-fill" style="width:60%"></div></div>
+          </div>
+          <div class="wc-footer">
+            <div class="wc-co2">−2.4 kg CO₂ sampai sekarang</div>
+            <button class="btn btn-primary btn-sm">Log Aktivitas</button>
+          </div>
+        </div>
+        <div class="weekly-card card">
+          <div class="wc-header">
+            <div class="wc-icon">🌱</div>
+            <div class="wc-meta">
+              <span class="badge badge-gray">Belum Dimulai</span>
+              <span class="wc-pts">+400 pts</span>
+            </div>
+          </div>
+          <h3 class="wc-title">Zero Waste Kitchen</h3>
+          <p class="wc-desc">Tidak menghasilkan sampah dapur yang tidak bisa didaur ulang selama satu minggu penuh.</p>
+          <div class="wc-progress">
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--gray-500);margin-bottom:6px"><span>Progress</span><span>0 / 7 hari</span></div>
+            <div class="progress-wrap"><div class="progress-fill" style="width:0%"></div></div>
+          </div>
+          <div class="wc-footer">
+            <div class="wc-co2">Target: −1.8 kg CO₂</div>
+            <button class="btn btn-secondary btn-sm">Mulai</button>
+          </div>
+        </div>
+        <div class="weekly-card card">
+          <div class="wc-header">
+            <div class="wc-icon">⚡</div>
+            <div class="wc-meta">
+              <span class="badge" style="background:rgba(251,191,36,.15);color:#92400E">Hampir Selesai</span>
+              <span class="wc-pts">+350 pts</span>
+            </div>
+          </div>
+          <h3 class="wc-title">Energy Saver Week</h3>
+          <p class="wc-desc">Kurangi konsumsi listrik rumah sebesar 20% dibanding minggu sebelumnya.</p>
+          <div class="wc-progress">
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--gray-500);margin-bottom:6px"><span>Progress</span><span style="font-weight:600;color:#92400E">85%</span></div>
+            <div class="progress-wrap"><div class="progress-fill" style="width:85%;background:linear-gradient(90deg,#F59E0B,#FCD34D)"></div></div>
+          </div>
+          <div class="wc-footer">
+            <div class="wc-co2">−1.1 kg CO₂ dikurangi</div>
+            <button class="btn btn-secondary btn-sm">Detail</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <h2 class="block-title">Koleksi Badge</h2>
+        <span class="badge badge-green">12 / 32 Earned</span>
+      </div>
+      <div class="achievements-grid">
+        <div class="ach-card card earned">
+          <div class="ach-icon">🌱</div>
+          <div class="ach-name">Green Starter</div>
+          <div class="ach-desc">Selesaikan misi pertama</div>
+          <div class="ach-date">Diraih 1 Jun</div>
+        </div>
+        <div class="ach-card card earned">
+          <div class="ach-icon">⚡</div>
+          <div class="ach-name">Week Warrior</div>
+          <div class="ach-desc">Streak 7 hari berturut</div>
+          <div class="ach-date">Diraih 8 Jun</div>
+        </div>
+        <div class="ach-card card earned">
+          <div class="ach-icon">🏆</div>
+          <div class="ach-name">Eco Champion</div>
+          <div class="ach-desc">Selesaikan 10 tantangan</div>
+          <div class="ach-date">Diraih 12 Jun</div>
+        </div>
+        <div class="ach-card card earned">
+          <div class="ach-icon">♻️</div>
+          <div class="ach-name">Recycler Pro</div>
+          <div class="ach-desc">Log daur ulang 5x</div>
+          <div class="ach-date">Diraih 15 Jun</div>
+        </div>
+        <div class="ach-card card earned">
+          <div class="ach-icon">🌊</div>
+          <div class="ach-name">Water Guardian</div>
+          <div class="ach-desc">Hemat 100L air dalam sebulan</div>
+          <div class="ach-date">Diraih 18 Jun</div>
+        </div>
+        <div class="ach-card card earned">
+          <div class="ach-icon">🌿</div>
+          <div class="ach-name">Plant Powered</div>
+          <div class="ach-desc">7 hari diet nabati</div>
+          <div class="ach-date">Diraih 20 Jun</div>
+        </div>
+        <div class="ach-card card locked">
+          <div class="ach-icon">🌍</div>
+          <div class="ach-name">Earth Guardian</div>
+          <div class="ach-desc">Selesaikan 50 tantangan</div>
+          <div class="ach-lock">🔒 27/50</div>
+        </div>
+        <div class="ach-card card locked">
+          <div class="ach-icon">🔥</div>
+          <div class="ach-name">Streak Master</div>
+          <div class="ach-desc">Streak 30 hari</div>
+          <div class="ach-lock">🔒 14/30 hari</div>
+        </div>
+        <div class="ach-card card locked">
+          <div class="ach-icon">💎</div>
+          <div class="ach-name">Diamond Eco</div>
+          <div class="ach-desc">Capai Level 15</div>
+          <div class="ach-lock">🔒 Level 8/15</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+}, {passive:true});
+
+function completeTask(btn) {
+  const card = btn.closest('.mission-card');
+  card.classList.add('done');
+  btn.remove();
+  const checkEl = card.querySelector('.mc-check');
+  checkEl.classList.remove('pending');
+  checkEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // Show toast
+  const toast = document.createElement('div');
+  toast.className = 'eco-toast';
+  toast.innerHTML = '🌿 Misi selesai! +50 EcoPoints';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
+document.querySelectorAll('.progress-fill').forEach(el => {
+  const w = el.style.width;
+  el.style.width = '0%';
+  setTimeout(() => { el.style.width = w; }, 400);
+});
+</script>
+</body>
+</html>

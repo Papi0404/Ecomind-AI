@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI Chat — EcoMind AI</title>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="chat.css"/>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4"/><path d="M16 4h4v4"/></svg></div>
+    EcoMind AI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Beranda</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="chat.html" class="active">AI Chat</a>
+    <a href="challenges.html">Tantangan</a>
+  </div>
+  <div class="nav-actions">
+    <div class="user-avatar-nav">R</div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar chat-sidebar">
+    <div class="chat-sidebar-top">
+      <button class="btn btn-primary" id="newChat" style="width:100%;justify-content:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Chat Baru
+      </button>
+    </div>
+    <div class="sidebar-section-label">Hari Ini</div>
+    <div class="chat-history">
+      <div class="chat-hist-item active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Cara mengurangi sampah plastik</span>
+      </div>
+      <div class="chat-hist-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Jejak karbon transportasi</span>
+      </div>
+    </div>
+    <div class="sidebar-section-label">Kemarin</div>
+    <div class="chat-history">
+      <div class="chat-hist-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Tips daur ulang elektronik</span>
+      </div>
+      <div class="chat-hist-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Panel surya untuk rumah</span>
+      </div>
+      <div class="chat-hist-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Diet ramah lingkungan</span>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user-card">
+        <div class="s-avatar">R</div>
+        <div class="s-user-info">
+          <div class="s-user-name">Rafi Pratama</div>
+          <div class="s-user-plan"><span class="badge badge-green" style="font-size:.7rem;padding:2px 8px">Pro</span></div>
+        </div>
+        <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CHAT AREA -->
+  <main class="main-content chat-main" id="chatMain">
+    <!-- Empty State / Initial State -->
+    <div class="chat-empty" id="chatEmpty">
+      <div class="chat-empty-inner">
+        <div class="empty-eco-icon anim-float">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="1.5" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4M16 4h4v4"/></svg>
+        </div>
+        <h2 class="empty-title">Halo, Rafi! 👋</h2>
+        <p class="empty-sub">Saya EcoMind AI, asisten lingkungan Anda. Tanyakan apa saja tentang cara hidup lebih ramah lingkungan.</p>
+        <div class="prompt-suggestions">
+          <div class="suggestion-label">💡 Coba tanya:</div>
+          <div class="suggestions-grid">
+            <button class="suggestion-chip" onclick="sendSuggestion('Cara mengurangi sampah plastik dalam kehidupan sehari-hari')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+              Cara mengurangi sampah plastik
+            </button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Hitung jejak karbon saya dari aktivitas harian')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Hitung jejak karbon saya
+            </button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Berikan tips hidup lebih hijau untuk pemula')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg>
+              Tips hidup lebih hijau
+            </button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Apa manfaat energi terbarukan bagi lingkungan?')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Manfaat energi terbarukan
+            </button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Bagaimana cara daur ulang sampah elektronik?')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              Daur ulang sampah elektronik
+            </button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Diet ramah lingkungan yang mudah diikuti')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 017 7v1h1a3 3 0 010 6h-1v1a7 7 0 01-14 0v-1H4a3 3 0 010-6h1V9a7 7 0 017-7z"/></svg>
+              Diet ramah lingkungan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="chatMessages" style="display:none">
+      <!-- Messages inserted by JS -->
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+      <div class="chat-input-wrap glass">
+        <div class="chat-input-inner">
+          <button class="icon-btn" title="Lampirkan file">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <textarea id="chatInput" class="chat-textarea" placeholder="Tanyakan tentang lingkungan..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <div class="chat-input-footer">
+          <span>EcoMind AI dapat membuat kesalahan. Verifikasi info penting.</span>
+          <div class="input-chips">
+            <span class="chip" onclick="insertChip('🌿 Lingkungan')">🌿 Lingkungan</span>
+            <span class="chip" onclick="insertChip('♻️ Daur Ulang')">♻️ Daur Ulang</span>
+            <span class="chip" onclick="insertChip('⚡ Energi')">⚡ Energi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const chatEmpty = document.getElementById('chatEmpty');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+
+const aiReplies = {
+  'Cara mengurangi sampah plastik dalam kehidupan sehari-hari': `Berikut cara efektif mengurangi sampah plastik sehari-hari:\n\n**🛍️ Ganti Kantong Belanja**\nGunakan tas kain yang bisa dipakai ulang. Satu tas kain bisa menggantikan ribuan kantong plastik.\n\n**🥤 Hindari Plastik Sekali Pakai**\nBawa botol minum sendiri, sedotan stainless steel, atau sedotan bambu.\n\n**🛒 Belanja Bijak**\nPilih produk dengan kemasan minimal atau kemasan yang bisa didaur ulang.\n\n**♻️ Daur Ulang Aktif**\nPilah sampah plastik dan serahkan ke bank sampah terdekat.\n\nDengan langkah ini, Anda bisa mengurangi hingga **70% sampah plastik** rumah tangga! 🌿`,
+  default: `Terima kasih atas pertanyaan Anda! Saya sedang menganalisis informasi terbaru tentang topik ini...\n\nBerdasarkan data lingkungan terkini, ada beberapa hal penting yang perlu Anda ketahui. Saya akan memberikan panduan yang komprehensif dan berbasis sains untuk membantu Anda mengambil langkah nyata menuju gaya hidup lebih hijau. 🌍\n\nApakah Anda ingin informasi yang lebih spesifik tentang aspek tertentu?`
+};
+
+function formatMsg(text) {
+  return text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br/>');
+}
+
+function addMessage(content, isUser) {
+  chatEmpty.style.display = 'none';
+  chatMessages.style.display = 'flex';
+  const div = document.createElement('div');
+  div.className = `msg-row ${isUser ? 'msg-user' : 'msg-ai'}`;
+  if (isUser) {
+    div.innerHTML = `<div class="msg-bubble user-bubble">${content}</div><div class="msg-avatar user-av">R</div>`;
+  } else {
+    div.innerHTML = `<div class="ai-avatar-msg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4"/><path d="M20 4l-4 4M16 4h4v4"/></svg></div><div class="msg-bubble ai-bubble">${formatMsg(content)}</div>`;
+  }
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg-row msg-ai'; div.id = 'typingIndicator';
+  div.innerHTML = `<div class="ai-avatar-msg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D5A27" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/></svg></div><div class="msg-bubble ai-bubble typing-indicator"><span></span><span></span><span></span></div>`;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendMessage() {
+  const val = chatInput.value.trim();
+  if (!val) return;
+  addMessage(val, true);
+  chatInput.value = '';
+  chatInput.style.height = 'auto';
+  showTyping();
+  setTimeout(() => {
+    document.getElementById('typingIndicator')?.remove();
+    const reply = aiReplies[val] || aiReplies['default'];
+    addMessage(reply, false);
+  }, 1800);
+}
+
+function sendSuggestion(text) {
+  chatInput.value = text;
+  sendMessage();
+}
+
+function insertChip(text) {
+  chatInput.value += text + ' ';
+  chatInput.focus();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 140) + 'px';
+}
+
+document.getElementById('newChat').addEventListener('click', () => {
+  chatMessages.innerHTML = '';
+  chatMessages.style.display = 'none';
+  chatEmpty.style.display = 'flex';
+});
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+}, {passive:true});
+</script>
+</body>
+</html>

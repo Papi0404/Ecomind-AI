@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #7ED957;
+  --primary-light: #A8E6A3;
+  --bg-cream: #FFF8E7;
+  --bg-white: #FFFFFF;
+  --text-forest: #2D5A27;
+  --text-dark: #1F3B1A;
+  
+  --bg-main: #FFF8E7;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --border-card: rgba(168, 230, 163, 0.5);
+  --text-primary: #1F3B1A;
+  --text-secondary: #4A5568;
+  
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg-main: #0B130A;
+  --bg-card: rgba(18, 34, 16, 0.75);
+  --border-card: rgba(45, 90, 39, 0.4);
+  --text-primary: #E8F5E9;
+  --text-secondary: #A5D6A7;
+  --bg-white: #11200E;
+  --text-forest: #7ED957;
+  --text-dark: #E8F5E9;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  font-family: var(--font-inter);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins);
+}
+
+/* Custom premium classes */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(126, 217, 87, 0.15);
+  border-color: var(--primary);
+}
+
+/* Cyber Glassmorphism for Admin */
+.cyber-panel {
+  background: rgba(10, 15, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(126, 217, 87, 0.2);
+  box-shadow: 0 0 20px rgba(126, 217, 87, 0.05);
+}
+
+.cyber-panel:hover {
+  border-color: rgba(126, 217, 87, 0.5);
+  box-shadow: 0 0 25px rgba(126, 217, 87, 0.15);
+}
+
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(126, 217, 87, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(126, 217, 87, 0.05) 1px, transparent 1px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-card);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Floating particles animation */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+  100% { transform: translateY(0px) rotate(360deg); opacity: 0.3; }
+}
+
+.eco-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: float 8s infinite ease-in-out;
+}
