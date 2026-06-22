@@ -4,6 +4,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { hashPassword, comparePassword } from '@/lib/security';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const updateProfileSchema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter').optional(),
   bio: z.string().max(160, 'Bio maksimal 160 karakter').optional(),

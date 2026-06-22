@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const patchChatSchema = z.object({
   title: z.string().min(1, 'Judul tidak boleh kosong').optional(),
   isPinned: z.boolean().optional(),

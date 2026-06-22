@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const adminUserActionSchema = z.object({
   userId: z.string().min(1),
   action: z.enum(['BAN', 'UNBAN', 'MAKE_ADMIN', 'MAKE_USER', 'DELETE']),
