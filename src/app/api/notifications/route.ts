@@ -27,12 +27,23 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// PUT: Mark all notifications as read
+// PUT: Mark all or single notification as read
 export async function PUT(req: NextRequest) {
   try {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const { id } = body;
+
+    if (id) {
+      await prisma.notification.update({
+        where: { id, userId: user.id },
+        data: { isRead: true },
+      });
+      return NextResponse.json({ message: 'Notifikasi ditandai telah dibaca.' });
     }
 
     await prisma.notification.updateMany({

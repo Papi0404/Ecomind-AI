@@ -55,7 +55,7 @@ export const api = {
   },
   notifications: {
     list: () => request('/api/notifications'),
-    markRead: () => request('/api/notifications', { method: 'PUT' }),
+    markRead: (body?: { id: string }) => request('/api/notifications', { method: 'PUT', body: body ? JSON.stringify(body) : undefined }),
   },
   profile: {
     get: () => request('/api/user/profile'),
