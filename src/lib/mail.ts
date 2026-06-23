@@ -1,9 +1,10 @@
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
-// 1. Generate 6-Digit OTP
+// 1. Generate 6-Digit OTP using a Cryptographically Secure PRNG
 export function generateOTP(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  // crypto.randomInt is CSPRNG-backed, unlike Math.random()
+  return crypto.randomInt(100000, 1000000).toString();
 }
 
 // 2. Hash OTP using sha256
@@ -18,10 +19,13 @@ export async function sendOTPEmail(email: string, otp: string): Promise<boolean>
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
-  console.log(`\n===========================================`);
-  console.log(`[EcoMind AI Mailer Sandbox]`);
-  console.log(`OTP VERIFICATION CODE FOR ${email}: ${otp}`);
-  console.log(`===========================================\n`);
+  // Only log OTP in development — never expose it in production server logs
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`\n===========================================`);
+    console.log(`[EcoMind AI Mailer Sandbox — DEV ONLY]`);
+    console.log(`OTP VERIFICATION CODE FOR ${email}: ${otp}`);
+    console.log(`===========================================\n`);
+  }
 
   if (!host || !user || !pass) {
     // Return true to allow development without working SMTP

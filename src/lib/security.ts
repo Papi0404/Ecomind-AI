@@ -84,7 +84,13 @@ export function checkRateLimit(ip: string): { allowed: boolean; remaining: numbe
 // 4. Security Headers (Helmet equivalents for Next.js)
 export const SECURITY_HEADERS = {
   'Content-Security-Policy':
-    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://i.pravatar.cc https://res.cloudinary.com; connect-src 'self';",
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline'; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://i.pravatar.cc https://res.cloudinary.com; " +
+    "connect-src 'self' https://*.supabase.co; " +
+    "frame-ancestors 'none';",
   'X-DNS-Prefetch-Control': 'on',
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
   'X-Frame-Options': 'SAMEORIGIN',

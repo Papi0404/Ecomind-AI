@@ -3,7 +3,10 @@ import { cookies } from 'next/headers';
 import { prisma } from './prisma';
 import { NextRequest } from 'next/server';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'ecomind_jwt_secret_rotation_key_12345!';
+if (!process.env.JWT_SECRET) {
+  throw new Error('FATAL: JWT_SECRET environment variable is not set. Application cannot start securely.');
+}
+const JWT_SECRET = process.env.JWT_SECRET;
 const COOKIE_NAME = 'ecomind_session';
 
 export interface TokenPayload {

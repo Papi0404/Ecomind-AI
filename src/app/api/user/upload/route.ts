@@ -50,9 +50,19 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error('File Upload API Error:', error);
-    return NextResponse.json(
-      { message: error.message || 'Gagal mengunggah berkas.' },
-      { status: 400 }
+    // Only expose our own safe validation messages; never leak internal library details.
+    const safeUserMessages = [
+      '5MB limit',
+      'not allowed',
+      'validation failed',
+      'Possible malicious',
+    ];
+    const isSafeMessage = safeUserMessages.some((msg) =>
+      error?.message?.toLowerCase().includes(msg.toLowerCase())
     );
+    const clientMessage = isSafeMessage
+      ? error.message
+      : 'Gagal mengunggah berkas. Silakan coba lagi.';
+    return NextResponse.json({ message: clientMessage }, { status: 400 });
   }
 }
