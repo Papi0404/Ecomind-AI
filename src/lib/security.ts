@@ -82,19 +82,24 @@ export function checkRateLimit(ip: string): { allowed: boolean; remaining: numbe
 }
 
 // 4. Security Headers (Helmet equivalents for Next.js)
+// NOTE: These constants are the single source of truth — middleware.ts builds
+//       headers dynamically for Edge compatibility, but values must stay in sync.
 export const SECURITY_HEADERS = {
   'Content-Security-Policy':
     "default-src 'self'; " +
     "script-src 'self' 'unsafe-inline'; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-    "font-src 'self' https://fonts.gstatic.com; " +
+    "font-src 'self' https://fonts.gstatic.com data:; " +
     "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://i.pravatar.cc https://res.cloudinary.com; " +
-    "connect-src 'self' https://*.supabase.co; " +
-    "frame-ancestors 'none';",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co; " +
+    "frame-ancestors 'none'; " +
+    "upgrade-insecure-requests;",
   'X-DNS-Prefetch-Control': 'on',
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
-  'X-Frame-Options': 'SAMEORIGIN',
+  // DENY (not SAMEORIGIN) — we never intentionally embed our own pages in iframes
+  'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'origin-when-cross-origin',
+  // strict-origin-when-cross-origin: sends full URL for same-origin, only origin for cross-origin
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
 };

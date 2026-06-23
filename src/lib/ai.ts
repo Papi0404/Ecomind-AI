@@ -1,3 +1,4 @@
+import '@/lib/env'; // Validates GEMINI_API_KEY at startup — throws FATAL if missing
 import { GoogleGenAI } from '@google/genai';
 
 const MODEL_NAME = 'gemini-3.5-flash';

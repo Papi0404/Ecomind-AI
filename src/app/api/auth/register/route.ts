@@ -2,19 +2,36 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword } from '@/lib/security';
 import { generateOTP, hashOTP, sendOTPEmail } from '@/lib/mail';
+import { rateLimitCheck, buildRateLimitResponse } from '@/lib/rate-limit';
 import { z } from 'zod';
 
 const registerSchema = z.object({
-  name: z.string().min(2, 'Nama minimal 2 karakter').max(50),
-  email: z.string().email('Format email tidak valid'),
-  password: z.string().min(6, 'Password minimal 6 karakter'),
+  name: z
+    .string()
+    .min(2, 'Nama minimal 2 karakter')
+    .max(50)
+    .regex(/^[\p{L}\s'-]+$/u, 'Nama hanya boleh berisi huruf, spasi, tanda hubung, atau apostrof'),
+  email: z.string().email('Format email tidak valid').max(254),
+  password: z
+    .string()
+    .min(8, 'Password minimal 8 karakter')
+    .max(128, 'Password maksimal 128 karakter'),
 });
 
 export async function POST(req: NextRequest) {
+  // Per-IP rate limiting: 10 req/min (brute-force / account harvesting protection)
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    (req as NextRequest & { ip?: string }).ip ??
+    '127.0.0.1';
+
+  const rateResult = await rateLimitCheck(ip, 'auth');
+  if (!rateResult.allowed) return buildRateLimitResponse(rateResult);
+
   try {
     const body = await req.json();
 
-    // Validate Inputs
+    // Validate inputs
     const validation = registerSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
@@ -26,16 +43,21 @@ export async function POST(req: NextRequest) {
     const { name, email, password } = validation.data;
     const lowerEmail = email.toLowerCase();
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email: lowerEmail },
-    });
+    // ── User Enumeration Prevention ──────────────────────────────────────────
+    // We ALWAYS respond with the same success message and status code, whether
+    // the email is already registered or not. This prevents attackers from
+    // probing which email addresses exist in our database.
+    const existingUser = await prisma.user.findUnique({ where: { email: lowerEmail } });
 
     if (existingUser) {
-      return NextResponse.json(
-        { message: 'Email sudah terdaftar. Silakan login atau verifikasi akun Anda.' },
-        { status: 400 }
-      );
+      // Silently do nothing, but return the same success message so the client
+      // cannot distinguish between "new account" and "existing email".
+      // A legitimate user who already registered will notice they never get an
+      // OTP and can use the "forgot password" flow instead.
+      return NextResponse.json({
+        message: 'Jika email ini belum terdaftar, kode OTP 6-digit akan segera dikirim.',
+        email: lowerEmail,
+      });
     }
 
     // Hash Password
@@ -58,18 +80,18 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Send verification email (will print to console in sandbox mode)
+    // Send verification email
     const emailSent = await sendOTPEmail(lowerEmail, otp);
     if (!emailSent) {
-      console.warn('Failed to send verification email, but user was created in sandbox.');
+      console.warn('[register] Failed to send OTP email — running in sandbox/console mode.');
     }
 
     return NextResponse.json({
-      message: 'Registrasi berhasil. Kode OTP 6-digit telah dikirim ke email Anda.',
+      message: 'Jika email ini belum terdaftar, kode OTP 6-digit akan segera dikirim.',
       email: lowerEmail,
     });
   } catch (error) {
-    console.error('Registration API Error:', error);
+    console.error('[register] API Error:', error);
     return NextResponse.json(
       { message: 'Terjadi kesalahan pada server.' },
       { status: 500 }

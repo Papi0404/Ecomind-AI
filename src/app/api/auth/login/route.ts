@@ -2,14 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { comparePassword } from '@/lib/security';
 import { createSession } from '@/lib/auth';
+import { rateLimitCheck, buildRateLimitResponse } from '@/lib/rate-limit';
 import { z } from 'zod';
 
 const loginSchema = z.object({
-  email: z.string().email('Format email tidak valid'),
-  password: z.string().min(1, 'Password harus diisi'),
+  email: z.string().email('Format email tidak valid').max(254),
+  password: z.string().min(1, 'Password harus diisi').max(128),
 });
 
 export async function POST(req: NextRequest) {
+  // Per-IP rate limiting: 10 req/min (brute-force protection)
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    (req as NextRequest & { ip?: string }).ip ??
+    '127.0.0.1';
+
+  const rateResult = await rateLimitCheck(ip, 'auth');
+  if (!rateResult.allowed) return buildRateLimitResponse(rateResult);
+
   try {
     const body = await req.json();
 
@@ -31,6 +41,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!user) {
+      // Generic message — prevents user enumeration
       return NextResponse.json(
         { message: 'Email atau password salah.' },
         { status: 401 }
@@ -49,16 +60,16 @@ export async function POST(req: NextRequest) {
     // Check if account is verified
     if (!user.isVerified) {
       return NextResponse.json(
-        { 
+        {
           message: 'Akun Anda belum diverifikasi. Silakan masukkan kode OTP Anda.',
           unverified: true,
-          email: user.email
+          email: user.email,
         },
         { status: 403 }
       );
     }
 
-    // Create session and cookie
+    // Create session and set httpOnly cookie
     await createSession(user.id, user.email, user.role, req);
 
     return NextResponse.json({
@@ -72,7 +83,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Login API Error:', error);
+    console.error('[login] API Error:', error);
     return NextResponse.json(
       { message: 'Terjadi kesalahan pada server.' },
       { status: 500 }
