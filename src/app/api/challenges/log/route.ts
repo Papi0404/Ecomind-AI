@@ -118,6 +118,10 @@ export async function POST(req: NextRequest) {
       newStreak = 1;
     }
 
+    if (newStreak === 0) {
+      newStreak = 1;
+    }
+
     // Level-up Calculation (threshold: level * 500 XP)
     let tempLevel = newLevel;
     let tempXp = newXp;
