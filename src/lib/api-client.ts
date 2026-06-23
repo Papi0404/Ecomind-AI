@@ -82,5 +82,6 @@ export const api = {
     stats: () => request('/api/admin/stats'),
     users: () => request('/api/admin/users'),
     action: (body: any) => request('/api/admin/users', { method: 'POST', body: JSON.stringify(body) }),
+    respondReport: (body: { reportId: string; responseMessage: string }) => request('/api/admin/reports', { method: 'POST', body: JSON.stringify(body) }),
   },
 };

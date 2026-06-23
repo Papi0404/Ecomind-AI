@@ -151,6 +151,8 @@ model Report {
   userId      String
   category    String   // Bug, Content, User
   description String
+  response    String?
+  status      String   @default("PENDING") // PENDING, RESOLVED
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
