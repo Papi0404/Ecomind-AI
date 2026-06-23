@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { createClient } from '@supabase/supabase-js';
 import path from 'path';
 import { prisma } from './prisma';
 
@@ -17,6 +17,27 @@ const MAGIC_BYTES: Record<string, string> = {
   '25504446': 'application/pdf',
   '504b0304': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // ZIP header used by docx
 };
+
+// Initialize Supabase client for storage
+function getSupabaseClient() {
+  // Extract project ref from DATABASE_URL for Supabase Storage
+  const dbUrl = process.env.DATABASE_URL || '';
+  const match = dbUrl.match(/postgres\.([a-z0-9]+):/);
+  const projectRef = match ? match[1] : '';
+
+  if (!projectRef) {
+    throw new Error('Could not extract Supabase project ref from DATABASE_URL. Please set SUPABASE_URL and SUPABASE_SERVICE_KEY in .env');
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL || `https://${projectRef}.supabase.co`;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || '';
+
+  if (!supabaseKey) {
+    throw new Error('SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY is required in .env for file uploads.');
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
+}
 
 export interface UploadResult {
   url: string;
@@ -68,24 +89,36 @@ export async function uploadFile(
     throw new Error('File header validation failed. Possible malicious file format.');
   }
 
-  // 4. Save file locally inside Next.js public directory
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
+  // 4. Upload to Supabase Storage (works on Vercel serverless — no read-only filesystem issues)
+  const supabase = getSupabaseClient();
 
   // Generate unique clean filename
   const sanitizedTitle = file.name
     .replace(/[^a-zA-Z0-9.]/g, '_')
     .replace(/_{2,}/g, '_');
   const uniqueFilename = `${Date.now()}_${userId.slice(0, 5)}_${sanitizedTitle}`;
-  const filePath = path.join(uploadDir, uniqueFilename);
+  const storagePath = `uploads/${uniqueFilename}`;
 
-  fs.writeFileSync(filePath, buffer);
+  const { data, error } = await supabase.storage
+    .from('ecomind-uploads')
+    .upload(storagePath, buffer, {
+      contentType: file.type,
+      upsert: false,
+    });
 
-  const fileUrl = `/uploads/${uniqueFilename}`;
+  if (error) {
+    console.error('Supabase Storage Upload Error:', error);
+    throw new Error(`Failed to upload file: ${error.message}`);
+  }
 
-  // 5. Save to database
+  // Get the public URL
+  const { data: publicUrlData } = supabase.storage
+    .from('ecomind-uploads')
+    .getPublicUrl(storagePath);
+
+  const fileUrl = publicUrlData.publicUrl;
+
+  // 5. Save metadata to database
   await prisma.upload.create({
     data: {
       userId,
