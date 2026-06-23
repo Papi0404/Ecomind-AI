@@ -43,7 +43,17 @@ export const api = {
     get: (id: string) => request(`/api/chat/${id}`),
     update: (id: string, body: any) => request(`/api/chat/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
     delete: (id: string) => request(`/api/chat/${id}`, { method: 'DELETE' }),
-    send: (id: string, content: string) => request(`/api/chat/${id}/send`, { method: 'POST', body: JSON.stringify({ content }) }),
+    send: (
+      id: string,
+      content: string,
+      fileUrl?: string | null,
+      fileName?: string | null,
+      fileType?: string | null
+    ) =>
+      request(`/api/chat/${id}/send`, {
+        method: 'POST',
+        body: JSON.stringify({ content, fileUrl, fileName, fileType }),
+      }),
   },
   challenges: {
     list: () => request('/api/challenges'),
@@ -74,6 +84,16 @@ export const api = {
     verify: (claim: string) => request('/api/community/verify', { method: 'POST', body: JSON.stringify({ claim }) }),
     summarize: (text: string) => request('/api/community/summarize', { method: 'POST', body: JSON.stringify({ text }) }),
     classifyWaste: (item: string) => request('/api/community/classify-waste', { method: 'POST', body: JSON.stringify({ item }) }),
+  },
+  groups: {
+    list: () => request('/api/community/groups'),
+    create: (body: any) => request('/api/community/groups', { method: 'POST', body: JSON.stringify(body) }),
+    delete: (id: string) => request(`/api/community/groups/${id}`, { method: 'DELETE' }),
+    join: (id: string) => request(`/api/community/groups/${id}/join`, { method: 'POST' }),
+    leave: (id: string) => request(`/api/community/groups/${id}/leave`, { method: 'POST' }),
+    getMessages: (id: string) => request(`/api/community/groups/${id}/messages`),
+    sendMessage: (id: string, body: { content: string; fileUrl?: string | null; fileName?: string | null; fileType?: string | null }) =>
+      request(`/api/community/groups/${id}/messages`, { method: 'POST', body: JSON.stringify(body) }),
   },
   report: {
     submit: (body: any) => request('/api/report', { method: 'POST', body: JSON.stringify(body) }),

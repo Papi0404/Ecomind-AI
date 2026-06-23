@@ -39,6 +39,8 @@ model User {
   receivedFriendships Friendship[]    @relation("FriendReceiver")
   sentDMs             DirectMessage[] @relation("DMSender")
   receivedDMs         DirectMessage[] @relation("DMReceiver")
+  groupMembers        GroupMember[]
+  groupMessages       GroupMessage[]
 }
 
 model Session {
@@ -67,6 +69,9 @@ model Message {
   chatId    String
   role      String   // user, assistant
   content   String
+  fileUrl   String?
+  fileName  String?
+  fileType  String?
   createdAt DateTime @default(now())
   chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
@@ -181,5 +186,43 @@ model DirectMessage {
 
   sender     User     @relation("DMSender", fields: [senderId], references: [id], onDelete: Cascade)
   receiver   User     @relation("DMReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+model CommunityGroup {
+  id          String         @id @default(uuid())
+  name        String
+  description String?
+  category    String
+  creatorId   String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  members     GroupMember[]
+  messages    GroupMessage[]
+}
+
+model GroupMember {
+  id        String         @id @default(uuid())
+  groupId   String
+  userId    String
+  joinedAt  DateTime       @default(now())
+  
+  group     CommunityGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, userId])
+}
+
+model GroupMessage {
+  id        String         @id @default(uuid())
+  groupId   String
+  senderId  String
+  content   String
+  fileUrl   String?
+  fileName  String?
+  fileType  String?
+  createdAt DateTime       @default(now())
+
+  group     CommunityGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sender    User           @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import QueryClientProvider from "@/providers/QueryClientProvider";
+import NotificationToast from "@/components/NotificationToast";
 
 export const metadata: Metadata = {
   title: "EcoMind AI - Platform AI Lingkungan Hidup Premium",
@@ -15,6 +16,13 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
+        {/* Google Fonts — loaded via link to avoid PostCSS @import conflict */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -29,6 +37,8 @@ export default function RootLayout({
       <body className="antialiased min-h-screen">
         <QueryClientProvider>
           {children}
+          {/* Global real-time notification toasts — polls every 15s for new notifs */}
+          <NotificationToast />
         </QueryClientProvider>
       </body>
     </html>

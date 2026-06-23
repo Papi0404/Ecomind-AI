@@ -6,6 +6,9 @@ import { z } from 'zod';
 
 const sendMessageSchema = z.object({
   content: z.string().min(1, 'Pesan tidak boleh kosong'),
+  fileUrl: z.string().url().optional().nullable(),
+  fileName: z.string().optional().nullable(),
+  fileType: z.string().optional().nullable(),
 });
 
 export async function POST(
@@ -29,7 +32,7 @@ export async function POST(
       );
     }
 
-    const { content } = validation.data;
+    const { content, fileUrl, fileName, fileType } = validation.data;
 
     // Verify chat belongs to user
     const chat = await prisma.chat.findUnique({
@@ -46,6 +49,9 @@ export async function POST(
         chatId,
         role: 'user',
         content,
+        fileUrl: fileUrl || null,
+        fileName: fileName || null,
+        fileType: fileType || null,
       },
     });
 
@@ -65,7 +71,11 @@ const contextMessages = history
   }));
 
     // 3. Call AI Service (Gemini with system rules)
-    const aiReplyText = await getAIChatResponse(contextMessages, content);
+    const attachmentObj = (fileUrl && fileName && fileType)
+      ? { url: fileUrl, filename: fileName, mimeType: fileType }
+      : undefined;
+
+    const aiReplyText = await getAIChatResponse(contextMessages, content, attachmentObj);
 
     // 4. Save AI Message
     const aiMessage = await prisma.message.create({

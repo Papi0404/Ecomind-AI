@@ -77,10 +77,59 @@ function generateMockResponse(query: string): string {
   return `Halo! Saya EcoMind AI. Saat ini saya berjalan dalam mode simulasi offline.\n\nPertanyaan Anda: "${query}"\n\nDalam mode online (dengan API Key aktif), saya dapat menjawab pertanyaan ini dan topik acak lainnya dengan lengkap melalui pencarian berbagai sumber terpercaya. Ada hal tentang gaya hidup ramah lingkungan atau daur ulang yang ingin Anda tanyakan? 🌿`;
 }
 
+async function processAttachment(attachment: { url: string; filename: string; mimeType: string }): Promise<{
+  inlineData?: { data: string; mimeType: string };
+  textAppend?: string;
+} | null> {
+  try {
+    const res = await fetch(attachment.url);
+    if (!res.ok) {
+      console.error(`Failed to fetch attachment from ${attachment.url}:`, res.statusText);
+      return null;
+    }
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const mime = attachment.mimeType.toLowerCase();
+
+    // Check if it's an image or PDF for native inlineData
+    if (mime.startsWith('image/') || mime === 'application/pdf') {
+      return {
+        inlineData: {
+          data: buffer.toString('base64'),
+          mimeType: mime,
+        }
+      };
+    }
+
+    // Check if it's docx
+    if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || attachment.filename.endsWith('.docx')) {
+      const mammoth = await import('mammoth');
+      const result = await mammoth.extractRawText({ buffer });
+      return {
+        textAppend: `\n\n--- KONTEN DOKUMEN (${attachment.filename}) ---\n${result.value}\n------------------------------------------\n`
+      };
+    }
+
+    // Default to trying text parsing if it's a text mime
+    if (mime.startsWith('text/')) {
+      return {
+        textAppend: `\n\n--- KONTEN DOKUMEN (${attachment.filename}) ---\n${buffer.toString('utf-8')}\n------------------------------------------\n`
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error processing attachment:', error);
+    return null;
+  }
+}
+
 // 1. Call Gemini API for Chat with Google Search grounding and key failover
 export async function getAIChatResponse(
   messages: { role: 'user' | 'assistant'; content: string }[],
-  userPrompt: string
+  userPrompt: string,
+  attachment?: { url: string; filename: string; mimeType: string }
 ): Promise<string> {
   return executeWithFallback(async (apiKey) => {
     const ai = new GoogleGenAI({ apiKey });
@@ -91,13 +140,35 @@ export async function getAIChatResponse(
       parts: [{ text: msg.content }],
     }));
 
+    // Process attachment if present
+    let inlinePart: any = null;
+    let finalPrompt = userPrompt;
+
+    if (attachment) {
+      const processed = await processAttachment(attachment);
+      if (processed) {
+        if (processed.inlineData) {
+          inlinePart = {
+            inlineData: processed.inlineData
+          };
+        } else if (processed.textAppend) {
+          finalPrompt = processed.textAppend + userPrompt;
+        }
+      }
+    }
+
+    const userParts: any[] = [{ text: finalPrompt }];
+    if (inlinePart) {
+      userParts.push(inlinePart);
+    }
+
     // Try with Google Search grounding first
     try {
       const response = await ai.models.generateContent({
         model: MODEL_NAME,
         contents: [
           ...history,
-          { role: 'user', parts: [{ text: userPrompt }] },
+          { role: 'user', parts: userParts },
         ],
         config: {
           systemInstruction: SYSTEM_PROMPT,
@@ -114,7 +185,7 @@ export async function getAIChatResponse(
         model: MODEL_NAME,
         contents: [
           ...history,
-          { role: 'user', parts: [{ text: userPrompt }] },
+          { role: 'user', parts: userParts },
         ],
         config: {
           systemInstruction: SYSTEM_PROMPT,
@@ -124,7 +195,12 @@ export async function getAIChatResponse(
       });
       return response.text || 'Maaf, saya tidak dapat memproses jawaban Anda saat ini.';
     }
-  }, () => generateMockResponse(userPrompt));
+  }, () => {
+    if (attachment) {
+      return `[Simulasi Offline] Saya menerima lampiran berkas Anda: "${attachment.filename}" (${attachment.mimeType}).\n\nDalam mode online, saya akan menganalisis konten berkas ini untuk membantu menjawab: "${userPrompt}"`;
+    }
+    return generateMockResponse(userPrompt);
+  });
 }
 
 // 2. Verify claim with search grounding support and key failover

@@ -10,7 +10,7 @@ const patchChatSchema = z.object({
   isPinned: z.boolean().optional(),
 });
 
-// GET: Fetch single chat with messages
+// GET: Fetch single chat with messages — SECURITY: compound filter (id + userId) prevents IDOR
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -23,16 +23,20 @@ export async function GET(
 
     const { id } = await params;
 
-    const chat = await prisma.chat.findUnique({
-      where: { id },
+    // SECURITY: Double-filter by both chat id AND userId — prevents IDOR even if token is compromised
+    const chat = await prisma.chat.findFirst({
+      where: { id, userId: user.id },
       include: {
         messages: {
           orderBy: { createdAt: 'asc' },
+          // Only messages in THIS chat (Prisma enforces via FK, but explicit for clarity)
+          where: { chatId: id },
         },
       },
     });
 
-    if (!chat || chat.userId !== user.id) {
+    if (!chat) {
+      // Return 404 (not 403) to prevent resource enumeration
       return NextResponse.json({ message: 'Chat tidak ditemukan.' }, { status: 404 });
     }
 

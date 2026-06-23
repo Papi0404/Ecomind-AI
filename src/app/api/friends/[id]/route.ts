@@ -5,7 +5,7 @@ import { getCurrentUser } from '@/lib/auth';
 // PATCH: Accept a friend request
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await getCurrentUser();
@@ -13,7 +13,7 @@ export async function PATCH(
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const friendshipId = params.id;
+    const { id: friendshipId } = await params;
     const body = await req.json();
     const { status } = body;
 
@@ -67,7 +67,7 @@ export async function PATCH(
 // DELETE: Decline or delete a friendship
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await getCurrentUser();
@@ -75,7 +75,7 @@ export async function DELETE(
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const friendshipId = params.id;
+    const { id: friendshipId } = await params;
 
     // Find friendship
     const friendship = await prisma.friendship.findUnique({

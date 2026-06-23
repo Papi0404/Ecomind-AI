@@ -17,8 +17,10 @@ import {
   Loader2,
   Flame,
   UserCheck,
-  Clock
+  Clock,
+  CheckCheck,
 } from 'lucide-react';
+
 
 export default function FriendsPage() {
   const router = useRouter();
@@ -392,6 +394,7 @@ export default function FriendsPage() {
 
                   {!chatLoading && chatData?.messages?.map((msg: any) => {
                     const isSelf = msg.senderId === user.id;
+                    const ts = new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                     return (
                       <div
                         key={msg.id}
@@ -407,13 +410,20 @@ export default function FriendsPage() {
                           `}
                         >
                           <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                          <span className={`text-[8px] block text-right mt-1 opacity-70`}>
-                            {new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
-                          </span>
+                          {/* Timestamp + read receipt */}
+                          <div className={`flex items-center justify-end gap-1 mt-1 ${isSelf ? 'text-white/60' : 'text-gray-400'}`}>
+                            <span className="text-[8px]">{ts}</span>
+                            {isSelf && (
+                              msg.isRead
+                                ? <span aria-label="Sudah dibaca"><CheckCheck className="w-3 h-3 text-green-400" /></span>
+                                : <span aria-label="Terkirim"><Check className="w-3 h-3 opacity-60" /></span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     );
                   })}
+
 
                   {!chatLoading && chatData?.messages?.length === 0 && (
                     <div className="text-center py-20 text-gray-400 text-xs font-semibold">

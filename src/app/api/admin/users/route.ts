@@ -88,6 +88,51 @@ export async function POST(req: NextRequest) {
     let details = '';
 
     if (action === 'DELETE') {
+      // SECURITY: Manually cascade-delete all FK-constrained records in order
+      // Prisma cascade may not cover all relations — explicit order prevents errors.
+
+      // 1. Delete sessions (auth tokens)
+      await prisma.session.deleteMany({ where: { userId } });
+
+      // 2. Delete admin logs authored by this user
+      await prisma.adminLog.deleteMany({ where: { userId } });
+
+      // 3. Delete notifications
+      await prisma.notification.deleteMany({ where: { userId } });
+
+      // 4. Delete user challenges & progress logs
+      await prisma.userChallenge.deleteMany({ where: { userId } });
+
+      // 4.5. Delete user badges (earned achievements) — PREVENTS FK CONSTRAINT ERROR
+      await prisma.userBadge.deleteMany({ where: { userId } });
+
+      // 5. Delete AI chat messages (child of Chat) then chats
+      const userChats = await prisma.chat.findMany({ where: { userId }, select: { id: true } });
+      const chatIds = userChats.map((c: { id: string }) => c.id);
+      if (chatIds.length > 0) {
+        await prisma.message.deleteMany({ where: { chatId: { in: chatIds } } });
+        await prisma.chat.deleteMany({ where: { userId } });
+      }
+
+      // 6. Delete direct messages (sent or received)
+      await prisma.directMessage.deleteMany({
+        where: { OR: [{ senderId: userId }, { receiverId: userId }] },
+      });
+
+      // 7. Delete friendships (sender or receiver)
+      await prisma.friendship.deleteMany({
+        where: { OR: [{ senderId: userId }, { receiverId: userId }] },
+      });
+
+      // 8. Delete reports submitted by user
+      await prisma.report.deleteMany({ where: { userId } });
+
+      // 9. Delete uploads if exists
+      try {
+        await prisma.upload.deleteMany({ where: { userId } });
+      } catch { /* model may not exist in older schema versions */ }
+
+      // 10. Finally delete the user
       await prisma.user.delete({ where: { id: userId } });
       details = `Deleted user ${targetUser.email} (${targetUser.name})`;
     } else {
