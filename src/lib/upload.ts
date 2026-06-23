@@ -100,7 +100,7 @@ export async function uploadFile(
   const storagePath = `uploads/${uniqueFilename}`;
 
   const { data, error } = await supabase.storage
-    .from('ecomind-uploads')
+    .from('eco')
     .upload(storagePath, buffer, {
       contentType: file.type,
       upsert: false,
@@ -113,7 +113,7 @@ export async function uploadFile(
 
   // Get the public URL
   const { data: publicUrlData } = supabase.storage
-    .from('ecomind-uploads')
+    .from('eco')
     .getPublicUrl(storagePath);
 
   const fileUrl = publicUrlData.publicUrl;
