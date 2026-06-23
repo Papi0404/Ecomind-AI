@@ -45,6 +45,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Prevent logging progress for the SAME challenge more than once on the same calendar day
+    const today = new Date();
+    if (userChallenge.loggedAt) {
+      const lastLogged = new Date(userChallenge.loggedAt);
+      if (
+        lastLogged.getDate() === today.getDate() &&
+        lastLogged.getMonth() === today.getMonth() &&
+        lastLogged.getFullYear() === today.getFullYear()
+      ) {
+        return NextResponse.json(
+          { message: 'Anda sudah mencatat progres untuk tantangan ini hari ini. Silakan catat kembali besok!' },
+          { status: 400 }
+        );
+      }
+    }
+
     // 1. Increment progress
     const newProgress = userChallenge.progressDays + 1;
     const isCompleted = newProgress >= userChallenge.challenge.durationDays;
@@ -77,23 +93,27 @@ export async function POST(req: NextRequest) {
     let newLevel = user.level;
     let notificationsToCreate: { title: string; content: string; userId: string }[] = [];
 
-    // Streak Check
+    // Streak Check (Calculated based on calendar day difference)
     let newStreak = user.streakCount;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
 
     if (user.lastActiveAt) {
       const lastActiveDate = new Date(user.lastActiveAt);
       lastActiveDate.setHours(0, 0, 0, 0);
       
-      const diffTime = Math.abs(today.getTime() - lastActiveDate.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const oneDayMs = 24 * 60 * 60 * 1000;
+      const diffTime = todayStart.getTime() - lastActiveDate.getTime();
+      const diffDays = Math.round(diffTime / oneDayMs);
       
       if (diffDays === 1) {
+        // Consecutive calendar day
         newStreak += 1;
       } else if (diffDays > 1) {
+        // Broke the streak, reset to 1
         newStreak = 1;
       }
+      // If diffDays === 0, they already logged a challenge today, so streak remains unchanged
     } else {
       newStreak = 1;
     }

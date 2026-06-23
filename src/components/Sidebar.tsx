@@ -18,7 +18,8 @@ import {
   Leaf,
   Bell,
   Menu,
-  X
+  X,
+  Users
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api-client';
@@ -59,6 +60,8 @@ export default function Sidebar() {
   const navItems = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Tanya AI', href: '/chat', icon: MessageSquare },
+    { name: 'Pusat Komunitas', href: '/community', icon: ShieldAlert },
+    { name: 'Teman & Chat', href: '/friends', icon: Users },
     { name: 'Tantangan', href: '/challenges', icon: Trophy },
     { name: 'Peringkat', href: '/leaderboard', icon: Award },
     { 
@@ -76,9 +79,9 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="lg:hidden w-full h-16 bg-[#2D5A27] text-white flex items-center justify-between px-4 z-40 fixed top-0 left-0">
+      <div className="lg:hidden w-full h-16 bg-[#1A403E] text-white flex items-center justify-between px-4 z-40 fixed top-0 left-0">
         <div className="flex items-center space-x-2">
-          <Leaf className="w-6 h-6 text-[#7ED957]" />
+          <Leaf className="w-6 h-6 text-[#8EC3B0]" />
           <span className="font-bold text-lg tracking-wider font-poppins">EcoMind AI</span>
         </div>
         <button onClick={() => setIsOpen(!isOpen)} className="p-1">
@@ -88,39 +91,39 @@ export default function Sidebar() {
 
       {/* Sidebar Container */}
       <aside className={`
-        fixed inset-y-0 left-0 w-64 bg-[#2D5A27] text-[#FFF8E7] flex flex-col justify-between z-30 transition-transform duration-300 transform
+        fixed inset-y-0 left-0 w-64 bg-[#1A403E] text-[#FAF6EB] flex flex-col justify-between z-30 transition-transform duration-300 transform
         lg:translate-x-0 lg:static lg:h-screen lg:flex-shrink-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         pt-16 lg:pt-0
       `}>
         {/* Top Header */}
-        <div className="p-6 hidden lg:flex items-center space-x-3 border-b border-[#3b7233]">
-          <div className="bg-[#7ED957] p-2 rounded-xl">
-            <Leaf className="w-6 h-6 text-[#2D5A27]" />
+        <div className="p-6 hidden lg:flex items-center space-x-3 border-b border-[#245754]">
+          <div className="bg-[#8EC3B0] p-2 rounded-xl">
+            <Leaf className="w-6 h-6 text-[#1A403E]" />
           </div>
           <div>
             <h1 className="font-extrabold text-xl tracking-wider font-poppins text-white leading-tight">
               EcoMind
             </h1>
-            <span className="text-[#A8E6A3] text-xs font-semibold">AI SUSTAINABILITY</span>
+            <span className="text-[#C4E4D9] text-xs font-semibold">AI COMMUNITY</span>
           </div>
         </div>
 
         {/* User Mini Profile */}
         {user && (
-          <div className="px-6 py-4 border-b border-[#3b7233] flex items-center space-x-3 bg-[#244b1f]">
+          <div className="px-6 py-4 border-b border-[#245754] flex items-center space-x-3 bg-[#123130]">
             <img
               src={user.avatarUrl || 'https://i.pravatar.cc/150?img=12'}
               alt={user.name}
-              className="w-10 h-10 rounded-xl object-cover border border-[#7ED957]"
+              className="w-10 h-10 rounded-xl object-cover border border-[#8EC3B0]"
             />
             <div className="overflow-hidden">
               <p className="text-white font-semibold text-sm truncate">{user.name}</p>
               <div className="flex items-center space-x-2 mt-0.5">
-                <span className="bg-[#7ED957] text-[#2D5A27] font-bold text-[10px] px-1.5 py-0.2 rounded">
+                <span className="bg-[#8EC3B0] text-[#1A403E] font-bold text-[10px] px-1.5 py-0.2 rounded">
                   LVL {user.level}
                 </span>
-                <span className="text-[#A8E6A3] text-xs font-medium">
+                <span className="text-[#C4E4D9] text-xs font-medium">
                   {user.ecoPoints} EP
                 </span>
               </div>
@@ -141,19 +144,19 @@ export default function Sidebar() {
                 className={`
                   flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all group
                   ${isActive 
-                    ? 'bg-[#7ED957] text-[#2D5A27] shadow-lg shadow-[#7ED957]/10 font-bold' 
-                    : 'text-[#A8E6A3] hover:bg-[#34672e] hover:text-white'
+                    ? 'bg-[#8EC3B0] text-[#1A403E] shadow-lg shadow-[#8EC3B0]/10 font-bold' 
+                    : 'text-[#C4E4D9] hover:bg-[#245754] hover:text-white'
                   }
                 `}
               >
                 <div className="flex items-center space-x-3">
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-[#2D5A27]' : 'text-[#A8E6A3] group-hover:text-white'}`} />
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-[#1A403E]' : 'text-[#C4E4D9] group-hover:text-white'}`} />
                   <span>{item.name}</span>
                 </div>
                 {item.badge !== undefined && (
                   <span className={`
                     text-[10px] font-extrabold px-1.5 py-0.5 rounded-full
-                    ${isActive ? 'bg-[#2D5A27] text-white' : 'bg-red-500 text-white'}
+                    ${isActive ? 'bg-[#1A403E] text-white' : 'bg-red-500 text-white'}
                   `}>
                     {item.badge}
                   </span>
@@ -182,18 +185,18 @@ export default function Sidebar() {
         </nav>
 
         {/* Bottom Utility Controls */}
-        <div className="p-4 border-t border-[#3b7233] space-y-2">
+        <div className="p-4 border-t border-[#245754] space-y-2">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium text-[#A8E6A3] hover:bg-[#34672e] hover:text-white transition-all"
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium text-[#C4E4D9] hover:bg-[#245754] hover:text-white transition-all"
           >
             <div className="flex items-center space-x-3">
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               <span>Mode {theme === 'light' ? 'Gelap' : 'Terang'}</span>
             </div>
-            <div className="w-8 h-4 bg-[#244b1f] rounded-full relative flex items-center p-0.5">
-              <div className={`w-3 h-3 bg-[#7ED957] rounded-full transition-transform duration-200 ${theme === 'dark' ? 'translate-x-4' : ''}`} />
+            <div className="w-8 h-4 bg-[#123130] rounded-full relative flex items-center p-0.5">
+              <div className={`w-3 h-3 bg-[#8EC3B0] rounded-full transition-transform duration-200 ${theme === 'dark' ? 'translate-x-4' : ''}`} />
             </div>
           </button>
 

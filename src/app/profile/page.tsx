@@ -15,8 +15,7 @@ import {
   Trophy, 
   Save, 
   CheckCircle,
-  AlertTriangle,
-  Upload
+  AlertTriangle
 } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -45,13 +44,6 @@ export default function ProfilePage() {
     enabled: !!user,
   });
 
-  // Query User's Badges list
-  const { data: notificationsData } = useQuery({
-    queryKey: ['notifications'],
-    queryFn: api.notifications.list,
-    enabled: !!user,
-  });
-
   useEffect(() => {
     if (user) {
       setName(user.name);
@@ -70,7 +62,7 @@ export default function ProfilePage() {
   if (authLoading || !user) {
     return (
       <div className="min-h-screen bg-grid-pattern flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-[#2D5A27] animate-spin" />
+        <Loader2 className="w-10 h-10 text-[#1A403E] animate-spin" />
       </div>
     );
   }
@@ -139,9 +131,9 @@ export default function ProfilePage() {
       <main className="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto lg:h-screen pt-20 lg:pt-10">
         
         {/* Banner and Avatar Wrapper (Discord style) */}
-        <section className="relative rounded-[24px] overflow-hidden bg-white dark:bg-[#122210] border border-[#A8E6A3]/30 shadow-md">
+        <section className="relative rounded-[24px] overflow-hidden bg-white border border-[#8EC3B0]/30 shadow-md">
           {/* Banner Container */}
-          <div className="h-44 relative bg-gradient-to-r from-[#2D5A27] to-[#7ED957]">
+          <div className="h-44 relative bg-gradient-to-r from-[#1A403E] to-[#8EC3B0]">
             {(bannerPreview || user.bannerUrl) && (
               <img
                 src={bannerPreview || user.bannerUrl}
@@ -171,7 +163,7 @@ export default function ProfilePage() {
           <div className="px-6 pb-6 pt-16 relative flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             
             {/* Avatar Absolute Pos */}
-            <div className="absolute -top-12 left-6 w-24 h-24 rounded-3xl overflow-hidden border-4 border-white dark:border-[#122210] shadow-md bg-white relative">
+            <div className="absolute -top-12 left-6 w-24 h-24 rounded-3xl overflow-hidden border-4 border-white shadow-md bg-white relative">
               <img
                 src={avatarPreview || user.avatarUrl || 'https://i.pravatar.cc/150?img=12'}
                 alt={user.name}
@@ -198,11 +190,11 @@ export default function ProfilePage() {
 
             {/* User credentials */}
             <div className="space-y-1.5 flex-1">
-              <h2 className="text-2xl font-extrabold font-poppins">{user.name}</h2>
-              <p className="text-xs text-gray-500 font-semibold max-w-lg">
+              <h2 className="text-2xl font-extrabold font-poppins text-gray-900">{user.name}</h2>
+              <p className="text-xs text-gray-700 font-semibold max-w-lg">
                 {user.bio || 'Belum menulis bio. Tulis bio Anda untuk membagikan impian pelestarian bumi.'}
               </p>
-              <div className="flex items-center space-x-2 text-[10px] text-gray-400 font-bold">
+              <div className="flex items-center space-x-2 text-[10px] text-gray-500 font-bold">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>Terdaftar sejak {new Date(user.createdAt).toLocaleDateString('id-ID')}</span>
               </div>
@@ -211,7 +203,7 @@ export default function ProfilePage() {
             {/* Quick editing button toggles */}
             <button
               onClick={() => setEditing(!editing)}
-              className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-gray-200"
+              className="bg-gray-100 text-gray-900 text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-gray-200"
             >
               {editing ? 'Batal Edit' : 'Edit Profil'}
             </button>
@@ -226,7 +218,7 @@ export default function ProfilePage() {
             
             {editing ? (
               <form onSubmit={handleUpdateProfile} className="glass-panel p-6 rounded-3xl space-y-4">
-                <h3 className="font-bold text-base border-b pb-2">Informasi Profil</h3>
+                <h3 className="font-bold text-base text-gray-900 border-b pb-2">Informasi Profil</h3>
 
                 {error && (
                   <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-semibold px-4 py-3 rounded-xl flex items-center space-x-2">
@@ -235,46 +227,52 @@ export default function ProfilePage() {
                   </div>
                 )}
 
+                {message && (
+                  <div className="bg-green-500/10 border border-green-500/20 text-green-700 text-xs font-semibold px-4 py-3 rounded-xl">
+                    {message}
+                  </div>
+                )}
+
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase">Nama Pengguna</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase">Nama Pengguna</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                    className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase">Bio</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase">Bio</label>
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     rows={3}
                     maxLength={160}
-                    className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                    className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                     placeholder="Tulis sedikit tentang Anda..."
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase">Alamat Email</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase">Alamat Email</label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                    className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={updating}
-                  className="bg-[#2D5A27] hover:bg-[#1f3b1a] disabled:opacity-50 text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center space-x-2"
+                  className="bg-[#1A403E] hover:bg-[#122c2b] disabled:opacity-50 text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center space-x-2"
                 >
-                  {updating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                  {updating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 text-white" />}
                   <span>Simpan Perubahan</span>
                 </button>
               </form>
@@ -283,37 +281,37 @@ export default function ProfilePage() {
                 {/* Stat 1 */}
                 <div className="glass-panel p-4 rounded-2xl text-center space-y-1">
                   <Flame className="w-6 h-6 text-orange-500 mx-auto animate-pulse" />
-                  <h4 className="text-xl font-extrabold">{user.streakCount} Hari</h4>
-                  <span className="text-[10px] text-gray-400 font-semibold uppercase">Daily Streak</span>
+                  <h4 className="text-xl font-extrabold text-gray-900">{user.streakCount} Hari</h4>
+                  <span className="text-[10px] text-gray-500 font-semibold uppercase">Daily Streak</span>
                 </div>
 
                 {/* Stat 2 */}
                 <div className="glass-panel p-4 rounded-2xl text-center space-y-1">
                   <Trophy className="w-6 h-6 text-yellow-500 mx-auto" />
-                  <h4 className="text-xl font-extrabold">{user.ecoPoints} EP</h4>
-                  <span className="text-[10px] text-gray-400 font-semibold uppercase">EcoPoints</span>
+                  <h4 className="text-xl font-extrabold text-gray-900">{user.ecoPoints} EP</h4>
+                  <span className="text-[10px] text-gray-500 font-semibold uppercase">EcoPoints</span>
                 </div>
 
                 {/* Stat 3 */}
                 <div className="glass-panel p-4 rounded-2xl text-center space-y-1">
                   <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
-                  <h4 className="text-xl font-extrabold">{completedCount} Misi</h4>
-                  <span className="text-[10px] text-gray-400 font-semibold uppercase">Selesai</span>
+                  <h4 className="text-xl font-extrabold text-gray-900">{completedCount} Misi</h4>
+                  <span className="text-[10px] text-gray-500 font-semibold uppercase">Selesai</span>
                 </div>
 
                 {/* Stat 4 */}
                 <div className="glass-panel p-4 rounded-2xl text-center space-y-1">
                   <Award className="w-6 h-6 text-blue-500 mx-auto" />
-                  <h4 className="text-xl font-extrabold">LVL {user.level}</h4>
-                  <span className="text-[10px] text-gray-400 font-semibold uppercase">Level XP</span>
+                  <h4 className="text-xl font-extrabold text-gray-900">LVL {user.level}</h4>
+                  <span className="text-[10px] text-gray-500 font-semibold uppercase">Level XP</span>
                 </div>
               </div>
             )}
 
             {/* Badges Earned Showcase */}
             <div className="glass-panel p-6 rounded-3xl space-y-4">
-              <h3 className="font-bold text-base flex items-center space-x-2">
-                <Award className="w-5 h-5 text-[#2D5A27] dark:text-[#7ED957]" />
+              <h3 className="font-bold text-base flex items-center space-x-2 text-gray-900">
+                <Award className="w-5 h-5 text-[#1A403E]" />
                 <span>Koleksi Lencana Penghargaan</span>
               </h3>
 
@@ -326,7 +324,6 @@ export default function ProfilePage() {
                   { name: 'Bebas Plastik', icon: '♻️', desc: 'Menolak kantong plastik belanja seminggu.' },
                   { name: 'Juara Lokal', icon: '🌍', desc: 'Mencapai peringkat top 10 leaderboard.' }
                 ].map((badge, idx) => {
-                  // Simulate unlocking 4 badges for visual aesthetics
                   const isUnlocked = idx < 4;
                   return (
                     <div 
@@ -334,14 +331,14 @@ export default function ProfilePage() {
                       className={`
                         p-4 rounded-2xl border transition-all text-center space-y-2
                         ${isUnlocked 
-                          ? 'bg-[#7ED957]/5 border-[#A8E6A3] text-gray-800 dark:text-[#E8F5E9]' 
-                          : 'bg-gray-100/50 dark:bg-gray-900/10 border-gray-200 dark:border-gray-800 opacity-50'
+                          ? 'bg-[#8EC3B0]/5 border-[#8EC3B0] text-gray-900' 
+                          : 'bg-gray-100/50 border-gray-200 opacity-50'
                         }
                       `}
                     >
                       <span className="text-3xl block">{badge.icon}</span>
                       <h4 className="font-bold text-xs">{badge.name}</h4>
-                      <p className="text-[9px] text-gray-400 font-semibold">{badge.desc}</p>
+                      <p className="text-[9px] text-gray-500 font-semibold">{badge.desc}</p>
                     </div>
                   );
                 })}
@@ -353,8 +350,8 @@ export default function ProfilePage() {
           {/* Right settings/tips panel (Grid-4) */}
           <div className="md:col-span-4 space-y-6">
             <div className="glass-panel p-6 rounded-3xl space-y-4">
-              <h3 className="font-bold text-sm font-poppins text-[#2D5A27] dark:text-[#7ED957]">Tips Daur Ulang</h3>
-              <ul className="text-xs text-gray-500 font-semibold space-y-3 leading-relaxed">
+              <h3 className="font-bold text-sm font-poppins text-[#1A403E]">Tips Daur Ulang</h3>
+              <ul className="text-xs text-gray-700 font-semibold space-y-3 leading-relaxed">
                 <li>🔋 Jangan campur baterai bekas dengan sampah rumah tangga umum.</li>
                 <li>📦 Lipat kardus belanja untuk mengurangi tumpukan volume sampah Anda.</li>
                 <li>🍼 Cuci botol kosmetik atau botol susu bekas sebelum diserahkan ke bank daur ulang.</li>

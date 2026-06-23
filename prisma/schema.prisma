@@ -34,6 +34,11 @@ model User {
   userBadges      UserBadge[]
   auditLogs       AdminLog[]
   reports         Report[]
+
+  sentFriendships     Friendship[]    @relation("FriendSender")
+  receivedFriendships Friendship[]    @relation("FriendReceiver")
+  sentDMs             DirectMessage[] @relation("DMSender")
+  receivedDMs         DirectMessage[] @relation("DMReceiver")
 }
 
 model Session {
@@ -149,3 +154,30 @@ model Report {
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Friendship {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  status     String   @default("PENDING") // PENDING, ACCEPTED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  sender     User     @relation("FriendSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("FriendReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+}
+
+model DirectMessage {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  content    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  sender     User     @relation("DMSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("DMReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+

@@ -62,6 +62,19 @@ export const api = {
     update: (body: any) => request('/api/user/profile', { method: 'PUT', body: JSON.stringify(body) }),
     upload: (formData: FormData) => request('/api/user/upload', { method: 'POST', body: formData }),
   },
+  friends: {
+    list: (search?: string) => request(`/api/friends${search ? `?search=${encodeURIComponent(search)}` : ''}`),
+    add: (email: string) => request('/api/friends', { method: 'POST', body: JSON.stringify({ email }) }),
+    accept: (friendshipId: string) => request(`/api/friends/${friendshipId}`, { method: 'PATCH', body: JSON.stringify({ status: 'ACCEPTED' }) }),
+    decline: (friendshipId: string) => request(`/api/friends/${friendshipId}`, { method: 'DELETE' }),
+    chat: (friendId: string) => request(`/api/friends/chat/${friendId}`),
+    sendDm: (friendId: string, content: string) => request(`/api/friends/chat/${friendId}`, { method: 'POST', body: JSON.stringify({ content }) }),
+  },
+  community: {
+    verify: (claim: string) => request('/api/community/verify', { method: 'POST', body: JSON.stringify({ claim }) }),
+    summarize: (text: string) => request('/api/community/summarize', { method: 'POST', body: JSON.stringify({ text }) }),
+    classifyWaste: (item: string) => request('/api/community/classify-waste', { method: 'POST', body: JSON.stringify({ item }) }),
+  },
   report: {
     submit: (body: any) => request('/api/report', { method: 'POST', body: JSON.stringify(body) }),
   },

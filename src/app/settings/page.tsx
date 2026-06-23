@@ -59,7 +59,7 @@ export default function SettingsPage() {
   if (authLoading || !user) {
     return (
       <div className="min-h-screen bg-grid-pattern flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-[#2D5A27] animate-spin" />
+        <Loader2 className="w-10 h-10 text-[#1A403E] animate-spin" />
       </div>
     );
   }
@@ -137,11 +137,11 @@ export default function SettingsPage() {
         
         {/* Welcome Title */}
         <section className="space-y-1">
-          <h2 className="text-3xl font-extrabold text-[#1F3B1A] dark:text-white font-poppins flex items-center space-x-2">
-            <Settings className="w-8 h-8 text-[#2D5A27] dark:text-[#7ED957]" />
+          <h2 className="text-3xl font-extrabold text-gray-900 font-poppins flex items-center space-x-2">
+            <Settings className="w-8 h-8 text-[#8EC3B0]" />
             <span>Pengaturan Akun</span>
           </h2>
-          <p className="text-sm text-gray-500 font-medium">
+          <p className="text-sm text-gray-700 font-medium">
             Kelola preferensi keamanan, pelaporan bug, dan tema aplikasi Anda.
           </p>
         </section>
@@ -155,14 +155,14 @@ export default function SettingsPage() {
             {/* Theme & Display card */}
             <div className="glass-panel p-6 rounded-3xl space-y-4">
               <h3 className="font-bold text-base">Tampilan & Tema</h3>
-              <div className="flex items-center justify-between p-4 bg-white dark:bg-[#122210] border border-[#A8E6A3]/30 rounded-2xl">
+              <div className="flex items-center justify-between p-4 bg-white border border-[#8EC3B0]/30 rounded-2xl">
                 <div className="space-y-1">
                   <h4 className="font-bold text-xs">Pilih Mode Tampilan</h4>
                   <p className="text-[10px] text-gray-400 font-semibold">Aktifkan mode gelap atau terang untuk kenyamanan mata Anda.</p>
                 </div>
                 <button
                   onClick={toggleTheme}
-                  className="bg-[#2D5A27] hover:bg-[#1f3b1a] text-[#FFF8E7] px-4 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all"
+                  className="bg-[#1A403E] hover:bg-[#122c2b] text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all"
                 >
                   {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
                   <span>Mode {theme === 'light' ? 'Gelap' : 'Terang'}</span>
@@ -200,7 +200,7 @@ export default function SettingsPage() {
                       value={oldPassword}
                       onChange={(e) => setOldPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                      className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -211,7 +211,7 @@ export default function SettingsPage() {
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="Minimal 6 karakter"
-                      className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                      className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                     />
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={passLoading}
-                  className="bg-[#2D5A27] hover:bg-[#1f3b1a] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center justify-center space-x-2"
+                  className="bg-[#1A403E] hover:bg-[#122c2b] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center justify-center space-x-2"
                 >
                   {passLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                   <span>Perbarui Password</span>
@@ -254,7 +254,7 @@ export default function SettingsPage() {
                     <select
                       value={reportCategory}
                       onChange={(e) => setReportCategory(e.target.value as any)}
-                      className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                      className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                     >
                       <option value="Bug">Masalah Teknis / Bug</option>
                       <option value="Content">Konten Salah / Rasis / Tidak Sopan</option>
@@ -271,14 +271,14 @@ export default function SettingsPage() {
                     onChange={(e) => setReportDesc(e.target.value)}
                     rows={4}
                     placeholder="Jelaskan detail laporan Anda secara rinci (minimal 10 karakter)..."
-                    className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-2.5 px-4 text-xs font-semibold outline-none focus:border-[#7ED957]"
+                    className="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 text-xs font-semibold text-gray-900 outline-none focus:border-[#8EC3B0]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={reportLoading || reportDesc.length < 10}
-                  className="bg-[#2D5A27] hover:bg-[#1f3b1a] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center justify-center space-x-2"
+                  className="bg-[#1A403E] hover:bg-[#122c2b] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center justify-center space-x-2"
                 >
                   {reportLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                   <span>Kirim Laporan</span>

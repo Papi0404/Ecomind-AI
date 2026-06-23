@@ -47,7 +47,7 @@ export default function NotificationsPage() {
   if (authLoading || !user) {
     return (
       <div className="min-h-screen bg-grid-pattern flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-[#2D5A27] animate-spin" />
+        <Loader2 className="w-10 h-10 text-[#1A403E] animate-spin" />
       </div>
     );
   }
@@ -67,7 +67,7 @@ export default function NotificationsPage() {
     if (t.includes('lencana') || t.includes('badge')) return <Award className="w-5 h-5 text-blue-500" />;
     if (t.includes('tantangan') || t.includes('selesai')) return <Trophy className="w-5 h-5 text-green-500" />;
     if (t.includes('streak')) return <Flame className="w-5 h-5 text-orange-500 animate-pulse" />;
-    return <Bell className="w-5 h-5 text-[#2D5A27]" />;
+    return <Bell className="w-5 h-5 text-[#1A403E]" />;
   };
 
   return (
@@ -79,22 +79,22 @@ export default function NotificationsPage() {
       <main className="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto lg:h-screen pt-20 lg:pt-10">
         
         {/* Page Header */}
-        <section className="flex items-center justify-between border-b border-[#A8E6A3]/30 pb-4">
+        <section className="flex items-center justify-between border-b border-[#8EC3B0]/30 pb-4">
           <div className="space-y-1">
-            <h2 className="text-3xl font-extrabold text-[#1F3B1A] dark:text-white font-poppins flex items-center space-x-2">
-              <Bell className="w-8 h-8 text-[#2D5A27] dark:text-[#7ED957]" />
-              <span>Kotak Masuk Notifikasi</span>
-            </h2>
-            <p className="text-sm text-gray-500 font-medium">
-              Pantau laporan perkembangan pencapaian, kenaikan tingkat, dan lencana baru Anda.
-            </p>
+            <h2 className="text-3xl font-extrabold text-gray-900 font-poppins flex items-center space-x-2">
+            <Bell className="w-8 h-8 text-[#8EC3B0]" />
+            <span>Kotak Masuk Notifikasi</span>
+          </h2>
+          <p className="text-sm text-gray-700 font-medium">
+            Pantau laporan perkembangan pencapaian, kenaikan tingkat, dan lencana baru Anda.
+          </p>
           </div>
 
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllRead}
               disabled={markReadMutation.isPending}
-              className="bg-[#2D5A27] hover:bg-[#1f3b1a] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center space-x-1.5 transition-all"
+              className="bg-[#1A403E] hover:bg-[#122c2b] disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center space-x-1.5 transition-all"
             >
               <CheckCheck className="w-4 h-4" />
               <span>Tandai Semua Dibaca</span>
@@ -106,10 +106,10 @@ export default function NotificationsPage() {
         <section className="max-w-3xl space-y-4">
           {notifLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-[#2D5A27]" />
+              <Loader2 className="w-8 h-8 animate-spin text-[#1A403E]" />
             </div>
           ) : list.length === 0 ? (
-            <div className="text-center py-16 bg-[#2D5A27]/5 rounded-[24px] space-y-3">
+            <div className="text-center py-16 bg-[#8EC3B0]/10 rounded-[24px] space-y-3">
               <MailOpen className="w-10 h-10 text-gray-400 mx-auto" />
               <p className="text-sm text-gray-500 font-medium">Kotak masuk Anda masih bersih. Tidak ada notifikasi baru.</p>
             </div>
@@ -121,8 +121,8 @@ export default function NotificationsPage() {
                   className={`
                     p-4 rounded-2xl border transition-all flex items-start space-x-4
                     ${item.isRead 
-                      ? 'bg-white/40 dark:bg-black/5 border-gray-100 dark:border-gray-800/80 opacity-70' 
-                      : 'bg-white dark:bg-[#122210] border-[#A8E6A3]/60 shadow-sm relative'
+                      ? 'bg-white/40 border-gray-100 opacity-70' 
+                      : 'bg-white border-[#8EC3B0]/60 shadow-sm relative'
                     }
                   `}
                 >
@@ -132,7 +132,7 @@ export default function NotificationsPage() {
                   )}
 
                   {/* Icon wrapper */}
-                  <div className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0">
                     {getNotificationIcon(item.title)}
                   </div>
 

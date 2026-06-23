@@ -30,18 +30,18 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="min-h-screen bg-grid-pattern flex items-center justify-center p-6 relative">
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#7ED957]/10 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#8EC3B0]/10 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="w-full max-w-md glass-panel p-8 rounded-[28px] shadow-2xl relative z-10 space-y-6">
         {/* Header Logo */}
         <div className="text-center space-y-2">
-          <div className="inline-flex bg-[#7ED957] p-3 rounded-2xl shadow-md">
-            <Leaf className="w-8 h-8 text-[#2D5A27]" />
+          <div className="inline-flex bg-[#8EC3B0] p-3 rounded-2xl shadow-md">
+            <Leaf className="w-8 h-8 text-[#1A403E]" />
           </div>
-          <h2 className="text-2xl font-extrabold text-[#1F3B1A] dark:text-white font-poppins">
+          <h2 className="text-2xl font-extrabold text-[#1A403E] font-poppins">
             Lupa Password
           </h2>
-          <p className="text-sm text-gray-500 font-medium leading-relaxed">
+          <p className="text-sm text-gray-700 font-medium leading-relaxed">
             Masukkan alamat email terdaftar Anda untuk menerima kode pemulihan password.
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
-                className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-gray-800 rounded-xl py-3 pl-12 pr-4 text-sm font-medium outline-none focus:border-[#7ED957] transition-all"
+                className="w-full bg-white border border-gray-300 rounded-xl py-3 pl-12 pr-4 text-sm font-medium text-gray-900 outline-none focus:border-[#8EC3B0] transition-all"
               />
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#2D5A27] hover:bg-[#1f3b1a] disabled:opacity-50 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-[#2D5A27]/20 flex items-center justify-center space-x-2"
+            className="w-full bg-[#1A403E] hover:bg-[#122c2b] disabled:opacity-50 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-[#1A403E]/20 flex items-center justify-center space-x-2"
           >
             {loading ? (
               <>
@@ -94,7 +94,7 @@ export default function ForgotPasswordPage() {
           Kembali ke{' '}
           <Link 
             href="/login" 
-            className="text-[#2D5A27] dark:text-[#A8E6A3] font-bold hover:underline"
+            className="text-[#1A403E] font-bold hover:underline"
           >
             Masuk
           </Link>
